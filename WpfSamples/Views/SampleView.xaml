@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <StackPanel>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hello" Margin="0 0 8 0"></TextBlock>
+                <TextBlock Text="{Binding Title}"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="{Binding Now}"></TextBlock>
+        </StackPanel>
 
-        <TextBlock Text="Hello"></TextBlock>
-        <TextBlock Text="{Binding Title}"></TextBlock>
-        <TextBlock Text="{Binding Now}"></TextBlock>
-        <TextBlock Text="{Binding Message}"></TextBlock>
-    </StackPanel>
+    </Grid>
 </UserControl>

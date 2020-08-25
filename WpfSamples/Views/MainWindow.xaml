@@ -7,11 +7,12 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="768" Width="1024">
-    <Grid>
+        Title="{Binding Title}" Height="768" Width="1024"
+        Style="{DynamicResource WindowStyle}">
+    <Grid Margin="8">
         <StackPanel>
             <TextBlock Text="Main Window"></TextBlock>
-            <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="0 16 0 0" />
         </StackPanel>
     </Grid>
 </Window>
