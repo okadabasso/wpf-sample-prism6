@@ -9,7 +9,7 @@
                 <TextBlock Text="Hello" Margin="0 0 8 0"></TextBlock>
                 <TextBlock Text="{Binding Title}"></TextBlock>
             </StackPanel>
-            <TextBlock Text="{Binding Now}"></TextBlock>
+            <TextBlock Text="{Binding Message}"></TextBlock>
         </StackPanel>
 
     </Grid>
