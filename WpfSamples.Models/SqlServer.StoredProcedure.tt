@@ -1,0 +1,237 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="$(SolutionDir)\tools\bin\DbSchemaTool.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="DbSchemaTool" #>
+<#@ import namespace="DbSchemaTool.Infrastructure" #>
+<#@ import namespace="DbSchemaTool.Infrastructure.StringFilters" #>
+<#@ output extension=".generated.cs" #>
+<#
+    var modelNamespace = "AdventureWorks.Models6";
+    var contextName = "SampleDbContext";
+    var connectionString = "data source=localhost\\SQLEXPRESS;initial catalog=sampledb;integrated security=True;MultipleActiveResultSets=True;";
+
+    var schemaManager = new SchemaManager(connectionString);
+    var routines = schemaManager.GetRoutines();
+#>
+<#  foreach(var routine in routines.Where(x => x.RoutineType == "PROCEDURE")){ 
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.SqlClient;
+namespace <#= modelNamespace #>
+{
+    public partial class <#= routine.ObjectName #>
+    {
+        private readonly <#= contextName #> context;
+        public <#= routine.ObjectName#>()
+        {
+            context = new <#= contextName #>();
+        }
+        public <#= routine.ObjectName#>(<#= contextName #> context)
+        {
+            this.context = context;
+        }
+
+        ///<summary>execute command <#= routine.SpecificSchema  #>.<#= routine.SpecificName  #></summary>
+        public int Execute(
+<#      // create arguments
+        var position = 0;
+        foreach(var parameter in routine.Parameters){
+            string modifier  = "";
+            if(parameter.ParameterMode == "IN"){
+                modifier = "";
+            }
+            else if(parameter.ParameterMode == "INOUT"){
+                modifier = "ref ";
+            }
+            else if(parameter.ParameterMode == "OUT"){
+                modifier = "out ";
+            }
+            if(position > 0){
+#>, 
+<#
+            }
+#>
+            <#= modifier #><#= parameter.ObjectTypeName#> <#= NamingConvention.Camelize(parameter.ObjectName) #><#
+            position++;
+        }
+#>
+
+        )
+        {
+            var returnValue = new SqlParameter() {ParameterName = "@return_value",  Direction = System.Data.ParameterDirection.ReturnValue};
+<#      // create parameters
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(parameter.ParameterMode == "IN"){
+#>
+            var p<#= position #> = new SqlParameter("<#= parameter.ParameterName #>",  <#= NamingConvention.Camelize(parameter.ObjectName) #>);
+<#
+            }
+            else if(parameter.ParameterMode == "INOUT"){
+#>
+            var p<#= position #> = new SqlParameter("<#= parameter.ParameterName #>",  <#= NamingConvention.Camelize(parameter.ObjectName) #>){ Direction = System.Data.ParameterDirection.InputOutput };
+<#
+            }
+            else if(parameter.ParameterMode == "OUT"){
+#>
+            var p<#= position #> = new SqlParameter() { ParameterName = "<#= parameter.ParameterName #>", Direction = "System.Data.ParameterDirection.Output" );
+<#
+            }
+            position++;
+        }
+        // call procedure
+#>
+
+            var affected = context.Database.ExecuteSqlCommand(@"EXEC @return_value = [<#= routine.SpecificSchema #>].[<#= routine.SpecificName #>]<#
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(position > 0){
+#>,<#
+            }
+#>
+
+<#= parameter.ParameterName #> = <#= parameter.ParameterName #><#
+            position++;
+        }
+#>",
+                returnValue<#
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+#>, 
+                p<#= position #><#
+                position++;
+        }
+#>);
+
+<#      // get output paraemeter values
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(parameter.ParameterMode == "INOUT" || parameter.ParameterMode == "OUTPUT" ){
+#>
+            <#= NamingConvention.Camelize(parameter.ObjectName) #> = (<#= parameter.ObjectTypeName #>)p<#= position #>.Value;
+<#
+            }
+            position++;
+        }
+
+#>
+            return (int)returnValue.Value;
+        }
+        ///<summary>execute query <#= routine.SpecificSchema  #>.<#= routine.SpecificName  #></summary>
+        public IEnumerable<T> Query<T>(
+<#      // create arguments
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            string modifier  = "";
+            if(parameter.ParameterMode == "IN"){
+                modifier = "";
+            }
+            else if(parameter.ParameterMode == "INOUT"){
+                modifier = "ref ";
+            }
+            else if(parameter.ParameterMode == "OUT"){
+                modifier = "out ";
+            }
+            if(position > 0){
+#>, 
+<#
+            }
+#>
+            <#= modifier #><#= parameter.ObjectTypeName#> <#= NamingConvention.Camelize(parameter.ObjectName) #><#
+            position++;
+        }
+#>
+
+        )
+        {
+<#      // create parameters
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(parameter.ParameterMode == "IN"){
+#>
+            var p<#= position #> = new SqlParameter("<#= parameter.ParameterName #>",  <#= NamingConvention.Camelize(parameter.ObjectName) #>);
+<#
+            }
+            else if(parameter.ParameterMode == "INOUT"){
+#>
+            var p<#= position #> = new SqlParameter("<#= parameter.ParameterName #>",  <#= NamingConvention.Camelize(parameter.ObjectName) #>){ Direction = System.Data.ParameterDirection.InputOutput };
+<#
+            }
+            else if(parameter.ParameterMode == "OUT"){
+#>
+            var p<#= position #> = new SqlParameter() { ParameterName = "<#= parameter.ParameterName #>", Direction = System.Data.ParameterDirection.Output );
+<#
+            }
+            position++;
+        }
+
+        // execute query
+#>
+
+            var result = context.Database.SqlQuery<T>(@"EXEC [<#= routine.SpecificSchema #>].[<#= routine.SpecificName #>]<#
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(position > 0){
+#>,<#
+            }
+#>
+
+<#= parameter.ParameterName #> = <#= parameter.ParameterName #><#
+            position++;
+        }
+#>"<#
+        if(routine.Parameters.Count > 0){
+            position = 0;
+            foreach(var parameter in routine.Parameters){
+#>, 
+                p<#= position #><#
+                    position++;
+            }
+        }
+#>);
+
+<#      // get output parameters
+        position = 0;
+        foreach(var parameter in routine.Parameters){
+            if(parameter.ParameterMode == "INOUT" || parameter.ParameterMode == "OUTPUT" ){
+#>
+            <#= NamingConvention.Camelize(parameter.ObjectName) #> = (<#= parameter.ObjectTypeName #>)p<#= position #>.Value;
+<#
+            }
+            position++;
+        }
+
+#>
+            return result;
+        }
+
+    }
+}
+<#      SaveOutput(routine.ObjectName + ".generated.cs"); 
+    } #>
+<#+
+private void SaveOutput(string outputFileName) {
+  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+  string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+  File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+
+  var visualStudio = (this.Host as IServiceProvider).GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+  var project = visualStudio.Solution.FindProjectItem(this.Host.TemplateFile).ContainingProject as EnvDTE.Project;
+  project.ProjectItems.AddFromFile(outputFilePath);
+}
+#>

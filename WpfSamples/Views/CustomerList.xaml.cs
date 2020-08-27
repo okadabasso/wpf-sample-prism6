@@ -1,5 +1,4 @@
-﻿using Prism.Regions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace WpfSamples.Views
 {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// CustomerList.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CustomerList : UserControl
     {
-        public MainWindow(IRegionManager regionManager)
+        public CustomerList()
         {
             InitializeComponent();
-            regionManager.RegisterViewWithRegion("ContentRegion", typeof(CustomerList));
         }
     }
 }

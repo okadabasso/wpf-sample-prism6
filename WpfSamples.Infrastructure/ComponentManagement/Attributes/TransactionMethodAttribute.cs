@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfSamples.ComponentManagement.Attributes
+namespace WpfSamples.Infrastructure.ComponentManagement.Attributes
 {
-    public class TraceAttribute : Attribute
+    public class TransactionMethodAttribute : Attribute
     {
     }
 }

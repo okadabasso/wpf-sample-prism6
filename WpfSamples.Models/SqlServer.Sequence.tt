@@ -1,0 +1,73 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="$(SolutionDir)\tools\bin\DbSchemaTool.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="DbSchemaTool" #>
+<#@ import namespace="DbSchemaTool.Infrastructure" #>
+<#@ import namespace="DbSchemaTool.Infrastructure.StringFilters" #>
+<#@ output extension=".generated.cs" #>
+<#
+    var modelNamespace = "AdventureWorks1.Models6";
+    var contextName = "SampleDbContext";
+    var connectionString = "data source=localhost\\SQLEXPRESS;initial catalog=sampledb;integrated security=True;MultipleActiveResultSets=True;";
+
+    var schemaManager = new SchemaManager(connectionString);
+    var sequences = schemaManager.GetSequences();
+#>
+<#  foreach(var sequence in sequences){ 
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data;
+using System.Data.SqlClient;
+namespace <#= modelNamespace #>
+{
+    public partial class <#= sequence.ObjectName #>
+    {
+        private readonly <#= contextName #> context;
+        public <#= sequence.ObjectName#>()
+        {
+            context = new <#= contextName #>();
+        }
+        public <#= sequence.ObjectName#>(<#= contextName #> context)
+        {
+            this.context = context;
+        }
+
+        ///<summary>execute query <#= sequence.SequenceSchema  #>.<#= sequence.SequenceName  #></summary>
+        public <#= sequence.ObjectTypeName #> NextValue()
+        {
+            var returnValue = new SqlParameter() {ParameterName = "@return_value",  Direction = System.Data.ParameterDirection.Output, DbType =DbType.<#= TypeHelper.DbTypeMapping[sequence.DataType] #> };
+            var affected = context.Database.ExecuteSqlCommand(@"SELECT @return_value = NEXT VALUE FOR [<#= sequence.SequenceSchema #>].[<#= sequence.SequenceName #>]", returnValue);
+
+             return (<#= sequence.ObjectTypeName #>)returnValue.Value;
+        }
+
+    }
+}
+<#      SaveOutput(sequence.ObjectName + ".generated.cs"); 
+    } #>
+<#+
+private void SaveOutput(string outputFileName) {
+  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+  string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+  File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+
+  var visualStudio = (this.Host as IServiceProvider).GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+  var project = visualStudio.Solution.FindProjectItem(this.Host.TemplateFile).ContainingProject as EnvDTE.Project;
+  project.ProjectItems.AddFromFile(outputFilePath);
+}
+#>

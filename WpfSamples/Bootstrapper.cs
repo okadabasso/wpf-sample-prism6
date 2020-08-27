@@ -22,7 +22,10 @@ namespace WpfSamples
             base.ConfigureContainerBuilder(builder);
             // Shell の登録
             builder.RegisterType<MainWindow>();
+
+            // 依存関係の注入
             builder.RegisterModule<SampleDependencyModule>();
+            builder.RegisterModule<Models.ModelsDependencyModule>();
         }
 
         protected override void InitializeShell()
