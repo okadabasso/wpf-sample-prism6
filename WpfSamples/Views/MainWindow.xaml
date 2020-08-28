@@ -8,7 +8,8 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="768" Width="1024"
-        Style="{DynamicResource WindowStyle}">
+        Style="{DynamicResource WindowStyle}"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="8">
         <DockPanel>
             <TextBlock Text="Main Window" DockPanel.Dock="Top"></TextBlock>
