@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
+using WpfSamples.Infrastructure.Logging;
 using WpfSamples.Services;
-
 namespace WpfSamples.ViewModels
 {
     [DependencyObject]
@@ -17,15 +17,32 @@ namespace WpfSamples.ViewModels
         private readonly IContainer dependencyContainer;
         private ILogger logger;
         public string Title { get; set; } = "Sample View";
-        public string Message { get; set; } = "hello " + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+        private string _message;
+        public string Message 
+        {
+            get 
+            {
+                return _message;
+            }
+            set
+            {
+                SetProperty(ref _message, value);
+            }
+        } 
+
+        public DelegateCommand LoadCommand { get; set; }
 
         public SampleViewModel(IContainer container, ILogger logger)
         {
             this.dependencyContainer = container;
             this.logger = logger;
-            logger.Trace("start");
 
-            Foo();
+            logger.BlockTrace(() => {
+                Foo();
+                LoadCommand = new DelegateCommand(OnLoaded);
+            });
+
         }
         [Trace]
         public virtual void Foo()
@@ -36,6 +53,12 @@ namespace WpfSamples.ViewModels
                 service.Send();
 
             }
+        }
+        [Trace]
+        protected virtual void OnLoaded()
+        {
+            Message = "loaded " + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            RaisePropertyChanged(nameof(Message));
         }
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="ComponentManagement\Interceptors\InterceptorExtension.cs" />
     <Compile Include="ComponentManagement\Interceptors\TraceInterceptor.cs" />
     <Compile Include="ComponentManagement\Interceptors\TransactionInterceptor.cs" />
+    <Compile Include="Logging\LoggingExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

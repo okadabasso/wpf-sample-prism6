@@ -15,6 +15,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
             if (!InterceptionEnabled(invocation)) 
             {
                 invocation.Proceed();
+                return;
             }
             var logger = LogManager.GetLogger(invocation.TargetType.FullName);
             this.Trace("method start", invocation, logger);
@@ -23,6 +24,11 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
         }
         private bool InterceptionEnabled(IInvocation invocation)
         {
+            if (invocation.TargetType.GetCustomAttribute<DependencyObjectAttribute>() == null)
+            {
+                return false;
+            }
+
             if (invocation.MethodInvocationTarget.GetCustomAttribute<TraceAttribute>() == null)
             {
                 return false;
