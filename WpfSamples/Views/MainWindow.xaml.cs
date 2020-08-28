@@ -24,7 +24,7 @@ namespace WpfSamples.Views
         public MainWindow(IRegionManager regionManager)
         {
             InitializeComponent();
-            regionManager.RegisterViewWithRegion("ContentRegion", typeof(CustomerList));
+            regionManager.RegisterViewWithRegion("ContentRegion", typeof(SampleView));
         }
     }
 }
