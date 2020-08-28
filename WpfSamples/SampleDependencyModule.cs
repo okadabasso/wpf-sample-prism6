@@ -22,25 +22,6 @@ namespace WpfSamples
         {
             base.Load(builder);
 
-            builder.Register<ILogger>((c) => {
-                if(c is IInstanceLookup)
-                {
-                    var lookup = c as IInstanceLookup;
-                    if (lookup.Parameters.Any())
-                    {
-                        Parameter p = lookup.Parameters.First();
-                        if(p is PositionalParameter)
-                        {
-                            return LogManager.GetLogger((p as PositionalParameter).Value.ToString());
-                        }
-                    }
-                }
-                return LogManager.GetLogger(c.GetComponentType().FullName);
-            });
-            
-            builder.RegisterType<TraceInterceptor>();
-            builder.RegisterType<TransactionInterceptor>();
-
             // transactional
             builder.RegisterAssemblyTypes(this.GetType().Assembly)
                 .Where(t => t.GetCustomAttribute<DependencyObjectAttribute>()?.Transactional ?? false )
@@ -49,7 +30,7 @@ namespace WpfSamples
                  .InterceptedBy(typeof(TraceInterceptor), typeof(TransactionInterceptor) )
                  .InstancePerLifetimeScope()
                  ;
-            // transactional
+            // trace
             builder.RegisterAssemblyTypes(this.GetType().Assembly)
                 .Where(t => (!t.GetCustomAttribute<DependencyObjectAttribute>()?.Transactional) ?? false)
                  .AsSelf()

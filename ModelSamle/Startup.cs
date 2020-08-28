@@ -12,6 +12,8 @@ using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.ComponentManagement.Interceptors;
 using Castle.Components.DictionaryAdapter.Xml;
 using Autofac.Core.Resolving;
+using WpfSamples.Models.ComponentManagement;
+using WpfSamples.Infrastructure.ComponentManagement;
 
 namespace ModelSamle
 {
@@ -21,29 +23,8 @@ namespace ModelSamle
         {
             var builder = new ContainerBuilder();
 
-            builder.Register<ILogger>((c) => {
-                if (c is IInstanceLookup)
-                {
-                    var lookup = c as IInstanceLookup;
-                    if (lookup.Parameters.Any())
-                    {
-                        Parameter p = lookup.Parameters.First();
-                        if (p is PositionalParameter)
-                        {
-                            return LogManager.GetLogger((p as PositionalParameter).Value.ToString());
-                        }
-                    }
-                }
-                return LogManager.GetLogger(c.GetComponentType().FullName);
-            });
-
-            builder.RegisterType<TraceInterceptor>();
-            builder.RegisterType<TransactionInterceptor>();
-
+            builder.RegisterModule<InfrastructureDependencyModule>();
             builder.RegisterModule<ModelsDependencyModule>();
-
-
-
 
             return builder.Build();
         }

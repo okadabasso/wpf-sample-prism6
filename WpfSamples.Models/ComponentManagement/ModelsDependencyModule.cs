@@ -12,7 +12,7 @@ using WpfSamples.Infrastructure.ComponentManagement.Interceptors;
 using Autofac.Core;
 using Castle.Components.DictionaryAdapter.Xml;
 
-namespace WpfSamples.Models
+namespace WpfSamples.Models.ComponentManagement
 {
     public class ModelsDependencyModule : Autofac.Module
     {
