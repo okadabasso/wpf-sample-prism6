@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfSamples.Models;
-using NLog;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.ComponentManagement.Interceptors;
 using Castle.Components.DictionaryAdapter.Xml;

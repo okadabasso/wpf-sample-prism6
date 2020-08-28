@@ -80,6 +80,7 @@
     <Compile Include="Entities\Suppliers.generated.cs" />
     <Compile Include="Entities\Territories.generated.cs" />
     <Compile Include="NorthwindDbContext.cs" />
+    <Compile Include="NorthwindDbContext.Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentManagement\ModelsDependencyModule.cs" />
     <Compile Include="SqlServer.DbContext.generated.cs">

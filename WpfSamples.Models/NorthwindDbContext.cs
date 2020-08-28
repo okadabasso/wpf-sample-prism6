@@ -7,7 +7,7 @@ using System.Data.Entity;
 using WpfSamples.Models.Entities;
 namespace WpfSamples.Models
 {
-    public class NorthwindDbContext : DbContext{
+    public partial class NorthwindDbContext : DbContext{
         public NorthwindDbContext()
             : base("name=NorthwindDb")
         {
