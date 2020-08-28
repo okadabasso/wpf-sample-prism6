@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,31 +11,24 @@ namespace WpfSamples.Models.Entities
     {
         public CustomerCustomerDemo()
         {
-
             CustomerId = null;
             CustomerTypeId = null;
 
-
         }
 
-
         ///<summary>column:CustomerID</summary>
-
         [Key]
         [Required]
         [Column("CustomerID", Order = 0, TypeName = "nchar")]
         public string CustomerId { get; set; }
 
-
         ///<summary>column:CustomerTypeID</summary>
-
         [Key]
         [Required]
         [Column("CustomerTypeID", Order = 1, TypeName = "nchar")]
         public string CustomerTypeId { get; set; }
 
-
-        public virtual CustomerDemographic CustomerDemographics { get; set; }
-        public virtual Customer Customers { get; set; }
+        public virtual CustomerDemographic CustomerDemographic { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

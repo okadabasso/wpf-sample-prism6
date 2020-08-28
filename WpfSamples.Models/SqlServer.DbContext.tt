@@ -73,9 +73,9 @@ namespace <#= modelNamespace #>
                 .HasMany(e => e.<#= variableName #>)
 <#
                 if(association.PrincipalRole.Required){ #>
-                .WithRequired(e => e.<#= association.PrincipalRole.ReferenceName #>)<#
+                .WithRequired(e => e.<#= Inflector.Currnet.Singularize(association.PrincipalRole.ReferenceName) #>)<#
                 } else { #>
-                .WithOptional(e => e.<#= association.PrincipalRole.ReferenceName #>)<#
+                .WithOptional(e => e.<#= Inflector.Currnet.Singularize(association.PrincipalRole.ReferenceName) #>)<#
                 } 
                 if(association.DependentRole.Columns.Count > 1 ){ #>
 

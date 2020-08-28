@@ -49,16 +49,21 @@ namespace <#= modelNamespace #>.Entities
             // hierarchyid is not supported on .NET Framework 4.7
             if(column.DataType == "hierarchyid") {  continue;  } 
             if(column.DefaultValue == null){ #>
-            <#= column.ObjectName #> = null;<#
+            <#= column.ObjectName #> = null;
+<#
             } else { 
                 if(column.DataType == "date" || column.DataType == "datetime" || column.DataType == "datetime2" || column.DataType == "smalldatetime"){ #>
-            <#= column.ObjectName #> = DateTime.Parse(<#= column.DefaultValueLiteral #>);<#
+            <#= column.ObjectName #> = DateTime.Parse(<#= column.DefaultValueLiteral #>);
+<#
             } else if(column.DataType == "time"){ #>
-            <#= column.ObjectName #> = TimeSpan.Parse(<#= column.DefaultValueLiteral #>);<#
+            <#= column.ObjectName #> = TimeSpan.Parse(<#= column.DefaultValueLiteral #>);
+<#
             } else if(column.DataType == "uniqueidentifier"){ #>
-            <#= column.ObjectName #> = Guid.Parse(<#= column.DefaultValueLiteral #>);<#
+            <#= column.ObjectName #> = Guid.Parse(<#= column.DefaultValueLiteral #>);
+<#
             } else { #>
-            <#= column.ObjectName #> = <#= column.DefaultValueLiteral #>;<#
+            <#= column.ObjectName #> = <#= column.DefaultValueLiteral #>;
+<#
                 } 
             } 
       } 
@@ -75,7 +80,8 @@ namespace <#= modelNamespace #>.Entities
            var variableName = Inflector.Currnet.Pluralize(association.DependentRole.ReferenceName);
             if(association.DependentRole.Multiplicity == "*"){
 #>
-            <#= variableName  #> = new HashSet<<#= Inflector.Currnet.Singularize(baseTable.ObjectName) #>>();<#
+            <#= variableName  #> = new HashSet<<#= Inflector.Currnet.Singularize(baseTable.ObjectName) #>>();
+<#
             }
         }
 #>
@@ -90,28 +96,35 @@ namespace <#= modelNamespace #>.Entities
         ///<summary><#= column.Description ?? $"column:{column.ColumnName}" #></summary>
 <# 
             if(table.PrimaryKeyColumns.Any(x => x == column.ColumnName)) {  #>
-        [Key]<#
+        [Key]
+<#
         }
             if(!table.PrimaryKeyColumns.Any() && column.OrdinalPosition == 1) {  #>
-        [Key]<#
+        [Key]
+<#
         }
             if(column.ObjectType.IsClass && column.IsNullable == "NO") {  #>
-        [Required]<#
+        [Required]
+<#
         } 
             if(table.PrimaryKeyColumns.Any(x => x == column.ColumnName)){  
 #>
-        [Column("<#= column.ColumnName #>", Order = <#= column.OrdinalPosition - 1 #>, TypeName = "<#= column.DataType #>")]<#
+        [Column("<#= column.ColumnName #>", Order = <#= column.OrdinalPosition - 1 #>, TypeName = "<#= column.DataType #>")]
+<#
         }  
             else if(table.Constraints.Any(x => x.ConstraintColumns.Any(y => y.ColumnName == column.ColumnName))){  
 #>
-        [Column("<#= column.ColumnName #>")]<#
+        [Column("<#= column.ColumnName #>")]
+<#
         }  
             else{  
 #>
-        [Column("<#= column.ColumnName #>", Order = <#= column.OrdinalPosition - 1 #>, TypeName = "<#= column.DataType #>")]<#
+        [Column("<#= column.ColumnName #>", Order = <#= column.OrdinalPosition - 1 #>, TypeName = "<#= column.DataType #>")]
+<#
         }  
             if(column.IsIdentity == "YES")  {  #>
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]<#
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+<#
         } #>
         public <#= column.ObjectTypeName #> <#= column.ObjectName #> { get; set; }
 
@@ -128,11 +141,13 @@ namespace <#= modelNamespace #>.Entities
                 var variableName = Inflector.Currnet.Pluralize(association.DependentRole.ReferenceName);
 #>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<<#= Inflector.Currnet.Singularize( baseTable.ObjectName )  #>> <#= variableName  #> { get; set; }<#                
+        public virtual ICollection<<#= Inflector.Currnet.Singularize( baseTable.ObjectName )  #>> <#= variableName  #> { get; set; }
+<#                
             }
             else{
 #>
-        public virtual <#= Inflector.Currnet.Singularize( baseTable.ObjectName ) #> <#= association.DependentRole.ReferenceName #> { get; set; }<#                
+        public virtual <#= Inflector.Currnet.Singularize( baseTable.ObjectName ) #> <#= association.DependentRole.ReferenceName #> { get; set; }
+<#                
             }
         }
         // このテーブルが参照する
@@ -145,7 +160,8 @@ namespace <#= modelNamespace #>.Entities
                 //}
                 var required = association.DependentRole.Required;
 #>
-        public virtual <#= Inflector.Currnet.Singularize(referencedTable.ObjectName) #> <#= association.PrincipalRole.ReferenceName #> { get; set; }<#
+        public virtual <#= Inflector.Currnet.Singularize(referencedTable.ObjectName) #> <#=  Inflector.Currnet.Singularize(association.PrincipalRole.ReferenceName) #> { get; set; }
+<#
         }
 #>
     }

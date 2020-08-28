@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,30 +11,23 @@ namespace WpfSamples.Models.Entities
     {
         public EmployeeTerritory()
         {
-
             EmployeeId = 0;
             TerritoryId = null;
 
-
         }
 
-
         ///<summary>column:EmployeeID</summary>
-
         [Key]
         [Column("EmployeeID", Order = 0, TypeName = "int")]
         public int EmployeeId { get; set; }
 
-
         ///<summary>column:TerritoryID</summary>
-
         [Key]
         [Required]
         [Column("TerritoryID", Order = 1, TypeName = "nvarchar")]
         public string TerritoryId { get; set; }
 
-
-        public virtual Employee Employees { get; set; }
-        public virtual Territory Territories { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Territory Territory { get; set; }
     }
 }
