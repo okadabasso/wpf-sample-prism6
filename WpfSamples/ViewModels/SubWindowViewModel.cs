@@ -22,7 +22,10 @@ namespace WpfSamples.ViewModels
         private INotification _notification;
         public INotification Notification
         {
-            get { return _notification; }
+            get 
+            { 
+                return _notification; 
+            }
             set
             {
                 this._notification = value;

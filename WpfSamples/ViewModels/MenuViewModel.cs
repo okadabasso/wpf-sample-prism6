@@ -17,23 +17,19 @@ namespace WpfSamples.ViewModels
     {
         private readonly ILogger _logger;
         public InteractionRequest<Notification> ShowSubWindowCommand { get; set; } = new InteractionRequest<Notification>();
-        public DelegateCommand ShowSampleWindowCommand { get; set; }
+        public DelegateCommand<string> ShowSampleWindowCommand { get; set; }
         public MenuViewModel(ILogger logger)
         {
             _logger = logger;
-            ShowSampleWindowCommand = new DelegateCommand(() => {
+            ShowSampleWindowCommand = new DelegateCommand<string>(name => {
                 this.ShowSubWindowCommand.Raise(new SubWindowOpenNotification
                 {
-                    ContentType = typeof(SubWindow),
-                    CallBack = InteractionComplete
+                    ContentType =  Type.GetType(name)
+                },
+                notification => {
+                    _logger.Trace($"{name} complete");
                 });
-
-
             });
-
-        }
-        private void InteractionComplete(int id)
-        {
 
         }
     }

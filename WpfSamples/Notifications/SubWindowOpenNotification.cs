@@ -18,7 +18,5 @@ namespace WpfSamples.Notifications
         /// <summary>呼び出すビュー</summary>
         public Type ContentType { get; set; }
 
-        /// <summary>CallBack 引き数はIdのInt想定</summary>
-        public Action<int> CallBack { get; set; }
     }
 }

@@ -41,7 +41,12 @@ namespace WpfSamples.Actions
             Action<IInteractionRequestAware> setNotificationAndClose = (iira) =>
             {
                 iira.Notification = notification;
-                iira.FinishInteraction = () => window.Close();
+                iira.FinishInteraction = () =>
+                {
+                    args.Callback();
+                    window.Close();
+                };
+                
             };
             
             MvvmHelpers.ViewAndViewModelAction(window.Content, setNotificationAndClose);
