@@ -32,5 +32,9 @@ namespace WpfSamples.ViewModels
             });
 
         }
+        protected virtual void Close()
+        {
+
+        }
     }
 }

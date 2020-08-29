@@ -3,11 +3,11 @@
 namespace WpfSamples.Views
 {
     /// <summary>
-    /// Interaction logic for SubWindow.xaml
+    /// Interaction logic for SampleWindow.xaml
     /// </summary>
-    public partial class SubWindow : Window
+    public partial class SampleWindow : Window
     {
-        public SubWindow()
+        public SampleWindow()
         {
             InitializeComponent();
         }

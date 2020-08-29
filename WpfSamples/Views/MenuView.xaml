@@ -23,7 +23,7 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Margin="8 0  8 0 ">
-            <Button Command="{Binding ShowSampleWindowCommand}" CommandParameter="WpfSamples.Views.SubWindow">
+            <Button Command="{Binding ShowSampleWindowCommand}" CommandParameter="WpfSamples.Views.SampleWindow">
                 <TextBlock Text="サンプルウインドウ"></TextBlock>
             </Button>
             <Button Command="{Binding ShowSampleWindowCommand}" CommandParameter="WpfSamples.Views.CustomerListWindow">

@@ -14,7 +14,7 @@ using WpfSamples.Infrastructure.Logging;
 namespace WpfSamples.ViewModels
 {
     [DependencyObject]
-    public class SubWindowViewModel : BindableBase, IInteractionRequestAware
+    public class SampleWindowViewModel : BindableBase, IInteractionRequestAware
     {
         private readonly IContainer _container;
         private readonly ILogger _logger;
@@ -35,7 +35,7 @@ namespace WpfSamples.ViewModels
         public Action FinishInteraction { get; set; }
 
         public DelegateCommand LoadedAction { get; set; }
-        public SubWindowViewModel (IContainer container, ILogger logger)
+        public SampleWindowViewModel (IContainer container, ILogger logger)
         {
             _container = container;
             _logger = logger;
