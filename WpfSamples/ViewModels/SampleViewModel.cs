@@ -31,7 +31,7 @@ namespace WpfSamples.ViewModels
             }
         } 
 
-        public DelegateCommand LoadCommand { get; set; }
+        public DelegateCommand LoadedCommand { get; set; }
 
         public SampleViewModel(IContainer container, ILogger logger)
         {
@@ -40,7 +40,7 @@ namespace WpfSamples.ViewModels
 
             logger.BlockTrace(() => {
                 Foo();
-                LoadCommand = new DelegateCommand(OnLoaded);
+                LoadedCommand = new DelegateCommand(OnLoaded);
             });
 
         }

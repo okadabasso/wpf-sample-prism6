@@ -33,9 +33,9 @@
             </Button>
             <Button 
                 Command="{Binding ShowSampleWindowCommand}" 
-                CommandParameter="WpfSamples.Views.CustomerListWindow"
+                CommandParameter="WpfSamples.Views.ProductListWindow"
                 >
-                <TextBlock Text="サンプルウインドウ"></TextBlock>
+                <TextBlock Text="商品一覧"></TextBlock>
             </Button>
         </StackPanel>
     </Grid>

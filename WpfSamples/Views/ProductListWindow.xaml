@@ -1,0 +1,33 @@
+﻿<Window x:Class="WpfSamples.Views.ProductListWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Width="800" Height="600"
+             WindowStartupLocation="CenterScreen"
+             Style="{DynamicResource WindowStyle}">
+    <DockPanel Margin="8 8 8 8">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <DataGrid ItemsSource="{Binding Products}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="商品ID" Binding="{Binding ProductId}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment"
+                                Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="商品名" Binding="{Binding ProductName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="供給者" Binding="{Binding Supplier.CompanyName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="カテゴリー" Binding="{Binding Category.CategoryName}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</Window>
