@@ -125,6 +125,9 @@
     <Compile Include="Services\FooService.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\ProductEditWindow.xaml.cs">
+      <DependentUpon>ProductEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ProductListWindowViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\SampleWindowViewModel.cs" />
@@ -144,6 +147,10 @@
       <DependentUpon>SampleWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\WindowStyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\ProductEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
