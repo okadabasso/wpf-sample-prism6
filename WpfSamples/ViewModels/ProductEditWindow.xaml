@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfSamples.ViewModels.ProductEditWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Window.Resources>
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Width"  Value="100"></Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="8 8 8 8">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="商品ID"></TextBlock>
+                <TextBox Text="{Binding ProductId.Value}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="商品名"></TextBlock>
+                <TextBox Text="{Binding ProductName.Value}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="供給元"></TextBlock>
+                <ComboBox  ItemsSource="{Binding Suppliers}" SelectedValue="{Binding SupplierId.Value}"
+                           SelectedValuePath="SupplierId"
+                           DisplayMemberPath="CompanyName"
+                           Width="300"
+                           ></ComboBox>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="カテゴリー"></TextBlock>
+                <ComboBox  ItemsSource="{Binding Categories}" SelectedValue="{Binding CategoryId.Value}"
+                           SelectedValuePath="CategoryId"
+                           DisplayMemberPath="CategoryName"
+                           Width="300"
+                           ></ComboBox>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="単位数"></TextBlock>
+                <TextBox Text="{Binding QuontityPerUnit.Value}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="単価"></TextBlock>
+                <TextBox Text="{Binding UnitPrice.Value}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="単価"></TextBlock>
+                <TextBox Text="{Binding UnitsInStock.Value}"></TextBox>
+            </StackPanel>
+
+        </StackPanel>
+    </DockPanel>
+</Window>
