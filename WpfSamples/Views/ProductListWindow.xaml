@@ -13,6 +13,17 @@
                 <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
+        <Grid DockPanel.Dock="Top" Margin="0 0 0 8">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="カテゴリー" Width="100" VerticalAlignment="Center"></TextBlock>
+                <ComboBox  ItemsSource="{Binding Categories}" SelectedValue="{Binding SelectedCategoryId.Value}"
+                           SelectedValuePath="CategoryId"
+                           DisplayMemberPath="CategoryName"
+                           Width="300"
+                           ></ComboBox>
+            </StackPanel>
+
+        </Grid>
         <DataGrid ItemsSource="{Binding Products}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="商品ID" Binding="{Binding ProductId}" >

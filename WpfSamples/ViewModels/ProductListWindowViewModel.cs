@@ -12,6 +12,8 @@ using WpfSamples.Models;
 using WpfSamples.Models.Entities;
 using System.Data.Entity;
 using System.Windows;
+using Reactive;
+using Reactive.Bindings;
 
 namespace WpfSamples.ViewModels
 {
@@ -22,36 +24,72 @@ namespace WpfSamples.ViewModels
         private readonly ILogger _logger;
         public DelegateCommand LoadedCommand { get; set; }
         public DelegateCommand SubmitCommand { get; set; }
-        public ObservableCollection<Product> Products { get; set; } = new ObservableCollection<Product>();
+        public ReadOnlyReactiveCollection<Product> Products { get; set; }
+        public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
+        public ReactiveProperty<int> SelectedCategoryId { get; set; }
         public ProductListWindowViewModel(IContainer container, ILogger logger)
         {
             _container = container;
             _logger = logger;
-            _logger.BlockTrace(() => {
+            _logger.BlockTrace(() =>
+            {
                 LoadedCommand = new DelegateCommand(OnLoaded);
                 SubmitCommand = new DelegateCommand(Submit);
+
+                SelectedCategoryId = new ReactiveProperty<int>();
+                SelectedCategoryId.Subscribe(value =>
+                {
+                    _logger.Trace($"value changed {value}");
+                    UpdateProductList();
+                });
             });
         }
         [Trace]
         protected virtual void OnLoaded()
         {
-            using(var scope = _container.BeginLifetimeScope())
+            using (var scope = _container.BeginLifetimeScope())
             {
                 var db = scope.Resolve<NorthwindDbContext>();
-                var products = db.Products
+                var products = new ObservableCollection<Product>(db.Products
                     .Include(product => product.Supplier)
                     .Include(product => product.Category)
-                    .OrderBy(x => x.ProductId);
-                Products.Clear();
-                Products.AddRange(products);
+                    .OrderBy(x => x.ProductId)
+                    );
+                Products = products.ToReadOnlyReactiveCollection(product => product);
 
-                RaisePropertyChanged();
+                var categories = new ObservableCollection<Category>(db.Categories
+                    .OrderBy(x => x.CategoryId)
+                    .AsNoTracking()
+                    );
+                Categories.Clear();
+                Categories.AddRange(categories);
+
+                RaisePropertyChanged(nameof(Products));
+                RaisePropertyChanged(nameof(Categories));
             }
         }
         [Trace]
         protected virtual void Submit()
         {
 
+        }
+        [Trace]
+        protected virtual void UpdateProductList()
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var db = scope.Resolve<NorthwindDbContext>();
+                var products = new ObservableCollection<Product>(db.Products
+                    .Include(product => product.Supplier)
+                    .Include(product => product.Category)
+                    .Where(product => product.CategoryId == SelectedCategoryId.Value)
+                    .OrderBy(x => x.ProductId)
+                    );
+                Products = products.ToReadOnlyReactiveCollection(product => product);
+
+                RaisePropertyChanged(nameof(Products));
+
+            }
         }
     }
 }
