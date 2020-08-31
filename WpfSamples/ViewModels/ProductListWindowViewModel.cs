@@ -14,6 +14,9 @@ using System.Data.Entity;
 using System.Windows;
 using Reactive;
 using Reactive.Bindings;
+using Prism.Interactivity.InteractionRequest;
+using WpfSamples.Notifications;
+using WpfSamples.Views;
 
 namespace WpfSamples.ViewModels
 {
@@ -24,9 +27,14 @@ namespace WpfSamples.ViewModels
         private readonly ILogger _logger;
         public DelegateCommand LoadedCommand { get; set; }
         public DelegateCommand SubmitCommand { get; set; }
+
+        public ReactiveCommand ShowEditWindowCommand { get; set; } = new ReactiveCommand();
+        public InteractionRequest<Notification> ShowEditWindowRequest{ get; set; } = new InteractionRequest<Notification>();
+
         public ReadOnlyReactiveCollection<Product> Products { get; set; }
         public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
-        public ReactiveProperty<int> SelectedCategoryId { get; set; }
+        public ReactiveProperty<int> SelectedCategoryId { get; set; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> SelectedProductId { get; set; } = new ReactiveProperty<int>();
         public ProductListWindowViewModel(IContainer container, ILogger logger)
         {
             _container = container;
@@ -35,8 +43,7 @@ namespace WpfSamples.ViewModels
             {
                 LoadedCommand = new DelegateCommand(OnLoaded);
                 SubmitCommand = new DelegateCommand(Submit);
-
-                SelectedCategoryId = new ReactiveProperty<int>();
+                ShowEditWindowCommand.Subscribe(ShowEditWindow);
                 SelectedCategoryId.Subscribe(value =>
                 {
                     _logger.Trace($"value changed {value}");
@@ -90,6 +97,17 @@ namespace WpfSamples.ViewModels
                 RaisePropertyChanged(nameof(Products));
 
             }
+        }
+        protected virtual void ShowEditWindow()
+        {
+            this.ShowEditWindowRequest.Raise(new SubWindowOpenNotification {
+                ContentType = typeof(ProductEditWindow),
+                Id = SelectedProductId.Value
+            },
+            notification => {
+                _logger.Trace($" complete");
+            });
+
         }
     }
 }

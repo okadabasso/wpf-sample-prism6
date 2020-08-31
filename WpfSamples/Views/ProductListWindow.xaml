@@ -4,6 +4,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:actions="clr-namespace:WpfSamples.Actions"
              Width="800" Height="600"
              WindowStartupLocation="CenterScreen"
              Style="{DynamicResource WindowStyle}">
@@ -12,6 +13,9 @@
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
             </i:EventTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding ShowEditWindowRequest, Mode=OneWay}">
+                <actions:ShowSubWindowAction></actions:ShowSubWindowAction>
+            </prism:InteractionRequestTrigger>
         </i:Interaction.Triggers>
         <Grid DockPanel.Dock="Top" Margin="0 0 0 8">
             <StackPanel Orientation="Horizontal">
@@ -24,7 +28,16 @@
             </StackPanel>
 
         </Grid>
-        <DataGrid ItemsSource="{Binding Products}" AutoGenerateColumns="False">
+        <Grid DockPanel.Dock="Bottom" Margin="0 8 0 0">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding ShowEditWindowCommand}"  Width="100">編集</Button>
+            </StackPanel>
+
+        </Grid>
+        <DataGrid ItemsSource="{Binding Products}" AutoGenerateColumns="False" 
+                  SelectedValue="{Binding SelectedProductId.Value}"
+                  SelectedValuePath="ProductId"
+                  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="商品ID" Binding="{Binding ProductId}" >
                     <DataGridTextColumn.ElementStyle>

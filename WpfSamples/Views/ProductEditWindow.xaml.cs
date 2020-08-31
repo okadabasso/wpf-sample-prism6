@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WpfSamples.ViewModels
+namespace WpfSamples.Views
 {
     /// <summary>
     /// Interaction logic for ProductEditWindow.xaml

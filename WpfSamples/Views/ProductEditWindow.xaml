@@ -1,0 +1,77 @@
+﻿<Window x:Class="WpfSamples.Views.ProductEditWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Style="{DynamicResource WindowStyle}">
+    <Window.Resources>
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Width"  Value="100"></Setter>
+        </Style>
+        <Style x:Key="StackLayout" TargetType="StackPanel">
+            <Setter Property="Margin"  Value="0 0 0 8"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="NumberInput" TargetType="TextBox">
+            <Setter Property="TextAlignment"  Value="Right"></Setter>
+        </Style>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <DockPanel Margin="8 8 8 8">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="商品ID"></TextBlock>
+                <TextBox Text="{Binding ProductId.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="商品名"></TextBlock>
+                <TextBox Text="{Binding ProductName.Value}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="供給元"></TextBlock>
+                <ComboBox  ItemsSource="{Binding Suppliers}" SelectedValue="{Binding SupplierId.Value}"
+                           SelectedValuePath="SupplierId"
+                           DisplayMemberPath="CompanyName"
+                           Width="300"
+                           ></ComboBox>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="カテゴリー"></TextBlock>
+                <ComboBox  ItemsSource="{Binding Categories}" SelectedValue="{Binding CategoryId.Value}"
+                           SelectedValuePath="CategoryId"
+                           DisplayMemberPath="CategoryName"
+                           Width="300"
+                           ></ComboBox>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="単位数"></TextBlock>
+                <TextBox Text="{Binding QuantityPerUnit.Value}" Width="320"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="単価"></TextBlock>
+                <TextBox Text="{Binding UnitPrice.Value}" Style="{StaticResource NumberInput}"  Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="在庫数"></TextBlock>
+                <TextBox Text="{Binding UnitsInStock.Value}" Style="{StaticResource NumberInput}" Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="受注数"></TextBlock>
+                <TextBox Text="{Binding UnitsOnOrder.Value}" Style="{StaticResource NumberInput}" Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <TextBlock Style="{StaticResource FieldLabel}" Text="受注レベル"></TextBlock>
+                <TextBox Text="{Binding ReorderLevel.Value}" Style="{StaticResource NumberInput}" Width="100"></TextBox>
+            </StackPanel>
+
+
+        </StackPanel>
+    </DockPanel>
+</Window>
