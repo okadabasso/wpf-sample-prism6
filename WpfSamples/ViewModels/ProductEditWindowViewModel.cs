@@ -41,7 +41,7 @@ namespace WpfSamples.ViewModels
 
         public Action FinishInteraction { get; set; }
 
-        public DelegateCommand LoadedCommand { get; set; }
+        public ReactiveCommand LoadedCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand SubmitCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand CloseCommand { get; set; } = new ReactiveCommand();
 
@@ -67,7 +67,7 @@ namespace WpfSamples.ViewModels
             _logger = logger;
 
 
-            LoadedCommand = new DelegateCommand(OnLoaded);
+            LoadedCommand.Subscribe(OnLoaded);
             SubmitCommand.Subscribe(OnSubmit);
 
         }
@@ -112,6 +112,28 @@ namespace WpfSamples.ViewModels
         [Trace]
         protected virtual void OnSubmit()
         {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var db = scope.Resolve<NorthwindDbContext>();
+                using(var transaction = db.Database.BeginTransaction())
+                {
+                    var product = db.Products.FirstOrDefault(x => x.ProductId == _notification.Id);
+
+                    product.ProductName = ProductName.Value;
+                    product.SupplierId = SupplierId.Value;
+                    product.CategoryId = CategoryId.Value;
+                    product.QuantityPerUnit = QuantityPerUnit.Value;
+                    product.UnitPrice = UnitPrice.Value ;
+                    product.UnitsInStock = UnitsInStock.Value;
+                    product.UnitsOnOrder = UnitsOnOrder.Value;
+                    product.ReorderLevel = ReorderLevel.Value;
+                    product.Discontinued = Discontinued.Value;
+
+                    db.SaveChanges();
+                    transaction.Commit();
+                }
+            }
+            FinishInteraction();
 
         }
         [Trace]

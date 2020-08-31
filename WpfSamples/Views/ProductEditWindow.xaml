@@ -23,6 +23,13 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel Margin="8 8 8 8">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Button
+                HorizontalAlignment="Left"
+                Command="{Binding SubmitCommand}"
+                Content="送信"
+                />
+        </StackPanel>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
                 <TextBlock Style="{StaticResource FieldLabel}" Text="商品ID"></TextBlock>
