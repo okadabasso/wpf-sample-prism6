@@ -30,6 +30,7 @@
         </Grid>
         <Grid DockPanel.Dock="Bottom" Margin="0 8 0 0">
             <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding ShowCreateWindowCommand}"  Width="100" Margin="0 0  8 0 ">新規</Button>
                 <Button Command="{Binding ShowEditWindowCommand}"  Width="100">編集</Button>
             </StackPanel>
 

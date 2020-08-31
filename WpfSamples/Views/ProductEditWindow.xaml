@@ -37,7 +37,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
                 <TextBlock Style="{StaticResource FieldLabel}" Text="商品名"></TextBlock>
-                <TextBox Text="{Binding ProductName.Value}"></TextBox>
+                <TextBox Text="{Binding ProductName.Value}" Width="320"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
                 <TextBlock Style="{StaticResource FieldLabel}" Text="供給元"></TextBlock>

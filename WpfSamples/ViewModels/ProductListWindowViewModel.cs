@@ -17,6 +17,7 @@ using Reactive.Bindings;
 using Prism.Interactivity.InteractionRequest;
 using WpfSamples.Notifications;
 using WpfSamples.Views;
+using System.Reactive.Linq;
 
 namespace WpfSamples.ViewModels
 {
@@ -28,13 +29,15 @@ namespace WpfSamples.ViewModels
         public DelegateCommand LoadedCommand { get; set; }
         public DelegateCommand SubmitCommand { get; set; }
 
+        public ReactiveCommand ShowCreateWindowCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand ShowEditWindowCommand { get; set; } = new ReactiveCommand();
         public InteractionRequest<Notification> ShowEditWindowRequest{ get; set; } = new InteractionRequest<Notification>();
 
         public ReadOnlyReactiveCollection<Product> Products { get; set; }
         public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
         public ReactiveProperty<int> SelectedCategoryId { get; set; } = new ReactiveProperty<int>();
-        public ReactiveProperty<int> SelectedProductId { get; set; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int?> SelectedProductId { get; set; } = new ReactiveProperty<int?>();
+        public ReactiveProperty<int?> IsEditable { get; set; } = new ReactiveProperty<int?>();
         public ProductListWindowViewModel(IContainer container, ILogger logger)
         {
             _container = container;
@@ -43,12 +46,10 @@ namespace WpfSamples.ViewModels
             {
                 LoadedCommand = new DelegateCommand(OnLoaded);
                 SubmitCommand = new DelegateCommand(Submit);
+
+                ShowCreateWindowCommand.Subscribe(ShowCreateWindow);
+                ShowEditWindowCommand = SelectedProductId.Select(x => x.HasValue && x.Value != 0).ToReactiveCommand();
                 ShowEditWindowCommand.Subscribe(ShowEditWindow);
-                SelectedCategoryId.Subscribe(value =>
-                {
-                    _logger.Trace($"value changed {value}");
-                    UpdateProductList();
-                });
             });
         }
         [Trace]
@@ -61,7 +62,10 @@ namespace WpfSamples.ViewModels
                     .Include(product => product.Supplier)
                     .Include(product => product.Category)
                     .OrderBy(x => x.ProductId)
+                    .AsNoTracking()
+                    .ToList()
                     );
+                ;
                 Products = products.ToReadOnlyReactiveCollection(product => product);
 
                 var categories = new ObservableCollection<Category>(db.Categories
@@ -74,6 +78,12 @@ namespace WpfSamples.ViewModels
                 RaisePropertyChanged(nameof(Products));
                 RaisePropertyChanged(nameof(Categories));
             }
+            SelectedCategoryId.Subscribe(value =>
+            {
+                SelectedProductId.Value = null;
+                UpdateProductList();
+            });
+            
         }
         [Trace]
         protected virtual void Submit()
@@ -83,28 +93,51 @@ namespace WpfSamples.ViewModels
         [Trace]
         protected virtual void UpdateProductList()
         {
-            using (var scope = _container.BeginLifetimeScope())
+            if(SelectedCategoryId.Value != 0)
             {
-                var db = scope.Resolve<NorthwindDbContext>();
-                var products = new ObservableCollection<Product>(db.Products
-                    .Include(product => product.Supplier)
-                    .Include(product => product.Category)
-                    .Where(product => product.CategoryId == SelectedCategoryId.Value)
-                    .OrderBy(x => x.ProductId)
-                    );
-                Products = products.ToReadOnlyReactiveCollection(product => product);
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var db = scope.Resolve<NorthwindDbContext>();
+                    var products = new ObservableCollection<Product>(db.Products
+                        .Include(product => product.Supplier)
+                        .Include(product => product.Category)
+                        .Where(product => product.CategoryId == SelectedCategoryId.Value)
+                        .OrderBy(x => x.ProductId)
+                        .AsNoTracking()
+                        .ToList()
+                        );
+                    Products = products.ToReadOnlyReactiveCollection(product => product);
 
-                RaisePropertyChanged(nameof(Products));
+                    RaisePropertyChanged(nameof(Products));
+
+                }
 
             }
+        }
+        protected virtual void ShowCreateWindow()
+        {
+            this.ShowEditWindowRequest.Raise(new SubWindowOpenNotification {
+                ContentType = typeof(ProductEditWindow),
+                Id = 0
+            },
+            notification => {
+                UpdateProductList();
+                SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
+                RaisePropertyChanged();
+                _logger.Trace($" complete");
+            });
+
         }
         protected virtual void ShowEditWindow()
         {
             this.ShowEditWindowRequest.Raise(new SubWindowOpenNotification {
                 ContentType = typeof(ProductEditWindow),
-                Id = SelectedProductId.Value
+                Id = SelectedProductId.Value ?? 0
             },
             notification => {
+                UpdateProductList();
+                SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
+                RaisePropertyChanged();
                 _logger.Trace($" complete");
             });
 

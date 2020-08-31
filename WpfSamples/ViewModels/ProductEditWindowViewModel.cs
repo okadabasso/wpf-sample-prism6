@@ -91,17 +91,21 @@ namespace WpfSamples.ViewModels
                     .AsNoTracking()
                     ));
 
-                var product = db.Products.AsNoTracking().FirstOrDefault(x => x.ProductId == _notification.Id);
-                ProductId.Value = product.ProductId;
-                ProductName.Value = product.ProductName;
-                SupplierId.Value = product.SupplierId;
-                CategoryId.Value = product.CategoryId;
-                QuantityPerUnit.Value = product.QuantityPerUnit;
-                UnitPrice.Value = product.UnitPrice;
-                UnitsInStock.Value = product.UnitsInStock;
-                UnitsOnOrder.Value = product.UnitsOnOrder;
-                ReorderLevel.Value = product.ReorderLevel;
-                Discontinued.Value = product.Discontinued;
+                if(_notification.Id != 0)
+                {
+                    var product = db.Products.AsNoTracking().FirstOrDefault(x => x.ProductId == _notification.Id);
+                    ProductId.Value = product.ProductId;
+                    ProductName.Value = product.ProductName;
+                    SupplierId.Value = product.SupplierId;
+                    CategoryId.Value = product.CategoryId;
+                    QuantityPerUnit.Value = product.QuantityPerUnit;
+                    UnitPrice.Value = product.UnitPrice;
+                    UnitsInStock.Value = product.UnitsInStock;
+                    UnitsOnOrder.Value = product.UnitsOnOrder;
+                    ReorderLevel.Value = product.ReorderLevel;
+                    Discontinued.Value = product.Discontinued;
+
+                }
 
             }
 
@@ -117,24 +121,47 @@ namespace WpfSamples.ViewModels
                 var db = scope.Resolve<NorthwindDbContext>();
                 using(var transaction = db.Database.BeginTransaction())
                 {
-                    var product = db.Products.FirstOrDefault(x => x.ProductId == _notification.Id);
+                    if(_notification.Id == 0)
+                    {
+                        var product = new Product();
+                        product.ProductName = ProductName.Value;
+                        product.SupplierId = SupplierId.Value;
+                        product.CategoryId = CategoryId.Value;
+                        product.QuantityPerUnit = QuantityPerUnit.Value;
+                        product.UnitPrice = UnitPrice.Value;
+                        product.UnitsInStock = UnitsInStock.Value;
+                        product.UnitsOnOrder = UnitsOnOrder.Value;
+                        product.ReorderLevel = ReorderLevel.Value;
+                        product.Discontinued = Discontinued.Value;
 
-                    product.ProductName = ProductName.Value;
-                    product.SupplierId = SupplierId.Value;
-                    product.CategoryId = CategoryId.Value;
-                    product.QuantityPerUnit = QuantityPerUnit.Value;
-                    product.UnitPrice = UnitPrice.Value ;
-                    product.UnitsInStock = UnitsInStock.Value;
-                    product.UnitsOnOrder = UnitsOnOrder.Value;
-                    product.ReorderLevel = ReorderLevel.Value;
-                    product.Discontinued = Discontinued.Value;
+                        db.Products.Add(product);
+                        db.SaveChanges();
+                        transaction.Commit();
 
-                    db.SaveChanges();
-                    transaction.Commit();
+                        _notification.Id = product.ProductId;
+                    }
+                    else
+                    {
+                        var product = db.Products.FirstOrDefault(x => x.ProductId == _notification.Id);
+                        product.ProductName = ProductName.Value;
+                        product.SupplierId = SupplierId.Value;
+                        product.CategoryId = CategoryId.Value;
+                        product.QuantityPerUnit = QuantityPerUnit.Value;
+                        product.UnitPrice = UnitPrice.Value;
+                        product.UnitsInStock = UnitsInStock.Value;
+                        product.UnitsOnOrder = UnitsOnOrder.Value;
+                        product.ReorderLevel = ReorderLevel.Value;
+                        product.Discontinued = Discontinued.Value;
+
+                        db.SaveChanges();
+                        transaction.Commit();
+                    }
+
+
+
                 }
             }
             FinishInteraction();
-
         }
         [Trace]
         protected virtual void OnClose()
