@@ -31,5 +31,15 @@ namespace WpfSamples.Infrastructure.Logging
         {
             return new StackFrame(skipFlames).GetMethod().DeclaringType.FullName;
         }
+
+        public static void ErrorRecursive(this ILogger logger, Exception exception)
+        {
+            var e = exception;
+            while(e != null)
+            {
+                logger.Error(e);
+                e = e.InnerException;
+            }
+        }
     }
 }

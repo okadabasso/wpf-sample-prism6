@@ -10,17 +10,20 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
 {
     public class TraceInterceptor : IInterceptor
     {
+        IAsyncInterceptor _asyncInterceptor;
+        public TraceInterceptor(TraceInterceptorAsync asyncInterceptor)
+        {
+            _asyncInterceptor = asyncInterceptor;
+        }
         public void Intercept(IInvocation invocation)
         {
-            if (!InterceptionEnabled(invocation)) 
+            if (!InterceptionEnabled(invocation))
             {
                 invocation.Proceed();
                 return;
             }
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
-            this.Trace("method start", invocation, logger);
-            invocation.Proceed();
-            this.Trace("method end", invocation, logger);
+
+            _asyncInterceptor.ToInterceptor().Intercept(invocation);
         }
         private bool InterceptionEnabled(IInvocation invocation)
         {
@@ -28,7 +31,6 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
             {
                 return false;
             }
-
             if (invocation.MethodInvocationTarget.GetCustomAttribute<TraceAttribute>() == null)
             {
                 return false;

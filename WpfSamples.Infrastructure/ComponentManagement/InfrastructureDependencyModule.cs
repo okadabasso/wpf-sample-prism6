@@ -23,8 +23,10 @@ namespace WpfSamples.Infrastructure.ComponentManagement
                 return LogManager.GetLogger(c.GetComponentType().FullName);
             });
 
-            builder.RegisterType<TraceInterceptor>();
-            builder.RegisterType<TransactionInterceptor>();
+            builder.RegisterType<TraceInterceptorAsync>().AsSelf();
+            builder.RegisterType<TransactionInterceptorAsync>().As<TransactionInterceptorAsync>();
+            builder.RegisterType<TraceInterceptor>().AsSelf();
+            builder.RegisterType<TransactionInterceptor>().As<TransactionInterceptor>();
 
 
         }

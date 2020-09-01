@@ -8,6 +8,9 @@ using WpfSamples.Models;
 using System.Data.Entity;
 using WpfSamples.Models.Entities;
 using System.Security.Cryptography.X509Certificates;
+using ModelSamle.Services;
+using WpfSamples.Infrastructure.Services;
+using WpfSamples.Infrastructure.DataTypes;
 
 namespace ModelSamle
 {
@@ -19,9 +22,12 @@ namespace ModelSamle
 
             using(var scope = container.BeginLifetimeScope())
             {
-                var db = scope.Resolve<NorthwindDbContext>();
+                
+                foreach(ServiceResult value in Enum.GetValues(typeof(ServiceResult)))
+                {
+                    Console.WriteLine($"{value.ToString()}= {value.DisplayName()}");
+                }
 
-                var order = db.Orders.Include(x => x.OrderDetails).FirstOrDefault(x => x.OrderId == 11078);
             }
             Console.WriteLine("process end");
             Console.ReadLine();

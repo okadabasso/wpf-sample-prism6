@@ -13,6 +13,8 @@ using Castle.Components.DictionaryAdapter.Xml;
 using Autofac.Core.Resolving;
 using WpfSamples.Models.ComponentManagement;
 using WpfSamples.Infrastructure.ComponentManagement;
+using ModelSamle.Services;
+using Autofac.Extras.DynamicProxy;
 
 namespace ModelSamle
 {
@@ -25,6 +27,11 @@ namespace ModelSamle
             builder.RegisterModule<InfrastructureDependencyModule>();
             builder.RegisterModule<ModelsDependencyModule>();
 
+            builder.RegisterType<ProductCreateService>()
+                .AsSelf()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(TraceInterceptor), typeof(TransactionInterceptor))
+                ;
             return builder.Build();
         }
     }
