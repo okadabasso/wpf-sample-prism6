@@ -24,7 +24,16 @@
             DockPanel.Dock="Bottom"
                 />
         <Grid>
-            <TextBlock Text="Content"></TextBlock>
+            <StackPanel>
+                <TextBlock Text="Content"></TextBlock>
+
+                <TextBox Text="{Binding x.Value}"></TextBox>
+                <TextBox Text="{Binding y.Value}"></TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="x + y = "></TextBlock>
+                    <TextBlock Text="{Binding result.Value}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>

@@ -38,6 +38,8 @@ namespace WpfSamples.ViewModels
         public ReactiveProperty<int> SelectedCategoryId { get; set; } = new ReactiveProperty<int>();
         public ReactiveProperty<int?> SelectedProductId { get; set; } = new ReactiveProperty<int?>();
         public ReactiveProperty<int?> IsEditable { get; set; } = new ReactiveProperty<int?>();
+
+        private ObservableCollection<Product> products { get; set; } = new ObservableCollection<Product>();
         public ProductListWindowViewModel(IContainer container, ILogger logger)
         {
             _container = container;
@@ -50,33 +52,28 @@ namespace WpfSamples.ViewModels
                 ShowCreateWindowCommand.Subscribe(ShowCreateWindow);
                 ShowEditWindowCommand = SelectedProductId.Select(x => x.HasValue && x.Value != 0).ToReactiveCommand();
                 ShowEditWindowCommand.Subscribe(ShowEditWindow);
+
+                Products = products.ToReadOnlyReactiveCollection();
             });
         }
-        [Trace]
-        protected virtual void OnLoaded()
+        protected void OnLoaded()
         {
             using (var scope = _container.BeginLifetimeScope())
             {
                 var db = scope.Resolve<NorthwindDbContext>();
-                var products = new ObservableCollection<Product>(db.Products
+                products.Clear();
+                products.AddRange(db.Products
                     .Include(product => product.Supplier)
                     .Include(product => product.Category)
                     .OrderBy(x => x.ProductId)
                     .AsNoTracking()
                     .ToList()
                     );
-                ;
-                Products = products.ToReadOnlyReactiveCollection(product => product);
 
-                var categories = new ObservableCollection<Category>(db.Categories
-                    .OrderBy(x => x.CategoryId)
-                    .AsNoTracking()
-                    );
                 Categories.Clear();
-                Categories.AddRange(categories);
-
-                RaisePropertyChanged(nameof(Products));
-                RaisePropertyChanged(nameof(Categories));
+                Categories.AddRange(db.Categories
+                    .OrderBy(x => x.CategoryId)
+                    .AsNoTracking());
             }
             SelectedCategoryId.Subscribe(value =>
             {
@@ -85,30 +82,26 @@ namespace WpfSamples.ViewModels
             });
             
         }
-        [Trace]
-        protected virtual void Submit()
+        protected void Submit()
         {
 
         }
-        [Trace]
-        protected virtual void UpdateProductList()
+        protected void UpdateProductList()
         {
             if(SelectedCategoryId.Value != 0)
             {
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var db = scope.Resolve<NorthwindDbContext>();
-                    var products = new ObservableCollection<Product>(db.Products
+                    products.Clear();
+                    products.AddRange(db.Products
                         .Include(product => product.Supplier)
                         .Include(product => product.Category)
-                        .Where(product => product.CategoryId == SelectedCategoryId.Value)
+                        .Where(x => x.CategoryId == SelectedCategoryId.Value)
                         .OrderBy(x => x.ProductId)
                         .AsNoTracking()
                         .ToList()
                         );
-                    Products = products.ToReadOnlyReactiveCollection(product => product);
-
-                    RaisePropertyChanged(nameof(Products));
 
                 }
 
@@ -123,7 +116,6 @@ namespace WpfSamples.ViewModels
             notification => {
                 UpdateProductList();
                 SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
-                RaisePropertyChanged();
                 _logger.Trace($" complete");
             });
 
@@ -137,7 +129,6 @@ namespace WpfSamples.ViewModels
             notification => {
                 UpdateProductList();
                 SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
-                RaisePropertyChanged();
                 _logger.Trace($" complete");
             });
 
