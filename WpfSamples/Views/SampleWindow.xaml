@@ -4,8 +4,10 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
-             Width="800" Height="600"
+            xmlns:if="clr-namespace:WpfSamples.ViewModels"
+            Width="800" Height="600"
              WindowStartupLocation="CenterScreen"
+        if:CloseWindowAttachedBehavior.Close="{Binding CloseWindow}"
          Style="{DynamicResource WindowStyle}">
     <DockPanel Margin="8 8 8 8 ">
         <i:Interaction.Triggers>
@@ -17,12 +19,26 @@
             <TextBlock Text="sub window"></TextBlock>
 
         </StackPanel>
-        <Button
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button
                 HorizontalAlignment="Left"
                 Command="{Binding SubmitCommand}"
                 Content="送信"
-            DockPanel.Dock="Bottom"
+            
                 />
+            <Button
+                HorizontalAlignment="Left"
+                Command="{Binding ChangeCommand}"
+                Content="行進"
+            
+                />
+            <Button
+                HorizontalAlignment="Left"
+                Command="{Binding CloseCommand}"
+                Content="Close"
+                />
+
+        </StackPanel>
         <Grid>
             <StackPanel>
                 <TextBlock Text="Content"></TextBlock>
@@ -33,6 +49,9 @@
                     <TextBlock Text="x + y = "></TextBlock>
                     <TextBlock Text="{Binding result.Value}"></TextBlock>
                 </StackPanel>
+                <TextBox Text="{Binding v}"></TextBox>
+                <TextBox Text="{Binding watcher.Value}"></TextBox>
+                <TextBlock Text="{Binding CloseWindow}"></TextBlock>
             </StackPanel>
         </Grid>
     </DockPanel>

@@ -34,6 +34,7 @@ namespace WpfSamples
             builder.RegisterAssemblyTypes(this.GetType().Assembly)
                 .Where(t => (!t.GetCustomAttribute<DependencyObjectAttribute>()?.Transactional) ?? false)
                  .AsSelf()
+                 .AsImplementedInterfaces()
                  .EnableClassInterceptors()
                  .InterceptedBy(typeof(TraceInterceptor))
                  ;
