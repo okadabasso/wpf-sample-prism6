@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +6,17 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
+using Microsoft.Extensions.Logging;
 
 namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
 {
     public class TraceInterceptorAsync : IAsyncInterceptor
     {
+        private readonly ILoggerFactory loggerFactory;
 
-        public TraceInterceptorAsync()
+        public TraceInterceptorAsync(ILoggerFactory loggerFactory)
         {
+            this.loggerFactory = loggerFactory;
         }
         public void InterceptAsynchronous(IInvocation invocation)
         {
@@ -34,7 +36,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return;
             }
 
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var  logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             invocation.Proceed();
             this.Trace($"method end with return value {invocation.ReturnValue}", invocation, logger);
@@ -47,7 +49,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return;
             }
 
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             await Invoke(invocation);
             this.Trace("method end", invocation, logger);
@@ -62,7 +64,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return await InvokeAsync<TResult>(invocation);
             }
 
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             TResult result = await InvokeAsync<TResult>(invocation);
             this.Trace($"method end with return value {result}", invocation, logger);

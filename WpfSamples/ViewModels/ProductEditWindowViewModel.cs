@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using NLog;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -17,10 +16,9 @@ using Reactive.Bindings;
 using Prism.Interactivity.InteractionRequest;
 using WpfSamples.Notifications;
 using System.Reactive.Linq;
-
+using Microsoft.Extensions.Logging;
 namespace WpfSamples.ViewModels
 {
-    [DependencyObject]
     public class ProductEditWindowViewModel : BindableBase, IInteractionRequestAware
     {
         private readonly IContainer _container;
@@ -61,7 +59,7 @@ namespace WpfSamples.ViewModels
         public ReactiveProperty<bool> Discontinued { get; set; } = new ReactiveProperty<bool>();
 
 
-        public ProductEditWindowViewModel(IContainer container, ILogger logger)
+        public ProductEditWindowViewModel(IContainer container, ILogger<ProductEditWindowViewModel> logger)
         {
             _container = container;
             _logger = logger;

@@ -1,5 +1,4 @@
-﻿using NLog;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -9,16 +8,16 @@ using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Notifications;
 using WpfSamples.Views;
 using Prism.Interactivity.InteractionRequest;
+using Microsoft.Extensions.Logging;
 
 namespace WpfSamples.ViewModels
 {
-    [DependencyObject]
     public class MenuViewModel : BindableBase
     {
         private readonly ILogger _logger;
         public InteractionRequest<Notification> ShowSubWindowCommand { get; set; } = new InteractionRequest<Notification>();
         public DelegateCommand<string> ShowSampleWindowCommand { get; set; }
-        public MenuViewModel(ILogger logger)
+        public MenuViewModel(ILogger<MenuViewModel> logger)
         {
             _logger = logger;
             ShowSampleWindowCommand = new DelegateCommand<string>(name => {
@@ -27,7 +26,7 @@ namespace WpfSamples.ViewModels
                     ContentType =  Type.GetType(name)
                 },
                 notification => {
-                    _logger.Trace($"{name} complete");
+                    _logger.LogTrace($"{name} complete");
                 });
             });
 

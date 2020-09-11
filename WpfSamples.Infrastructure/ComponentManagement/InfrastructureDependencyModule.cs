@@ -11,6 +11,9 @@ using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.ComponentManagement.Interceptors;
 using Autofac.Core;
 using Castle.Components.DictionaryAdapter.Xml;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+
 namespace WpfSamples.Infrastructure.ComponentManagement
 {
     public class InfrastructureDependencyModule : Autofac.Module
@@ -19,9 +22,15 @@ namespace WpfSamples.Infrastructure.ComponentManagement
         {
             base.Load(builder);
 
-            builder.Register<ILogger>((c) => {
-                return LogManager.GetLogger(c.GetComponentType().FullName);
-            });
+            ILoggerFactory loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new NLog.Extensions.Logging.NLogLoggerProvider());
+            builder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
+
+            builder.Register<Func<Microsoft.Extensions.Logging.ILogger>>(c => {
+                var factory = c.Resolve<ILoggerFactory>();
+                return () => { return factory.CreateLogger("default"); };
+            }).PropertiesAutowired();
+            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>));
 
             builder.RegisterType<TraceInterceptorAsync>().AsSelf();
             builder.RegisterType<TransactionInterceptorAsync>().As<TransactionInterceptorAsync>();

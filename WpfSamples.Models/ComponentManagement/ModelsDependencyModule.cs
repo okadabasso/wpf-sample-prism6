@@ -6,12 +6,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using NLog;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.ComponentManagement.Interceptors;
 using Autofac.Core;
 using Castle.Components.DictionaryAdapter.Xml;
-
+using Microsoft.Extensions.Logging;
 namespace WpfSamples.Models.ComponentManagement
 {
     public class ModelsDependencyModule : Autofac.Module
@@ -22,17 +21,12 @@ namespace WpfSamples.Models.ComponentManagement
 
             builder.Register<NorthwindDbContext>((c) => {
                 var db = new NorthwindDbContext();
-                var parameter = new PositionalParameter(0, typeof(NorthwindDbContext).FullName);
-                var logger = c.Resolve<ILogger>(parameter);
+                var logger = c.Resolve<ILogger<NorthwindDbContext>>();
                 db.Database.Log = sql =>
                 {
-                    if (logger.IsTraceEnabled)
+                    if (logger.IsEnabled(LogLevel.Trace))
                     {
-                        var callerClassName = typeof(NorthwindDbContext).FullName;
-                        NLog.LogEventInfo info = new NLog.LogEventInfo(NLog.LogLevel.Trace, logger.Name, sql);
-                        // 呼び出し元情報を設定します。
-                        info.SetCallerInfo(callerClassName, null, null, 0);
-                        logger.Log(typeof(ModelsDependencyModule), info);
+                        logger.LogTrace(sql);
 
                     }
                 };

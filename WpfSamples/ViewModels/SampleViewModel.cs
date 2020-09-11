@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Core;
-using NLog;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -9,6 +8,7 @@ using System.Linq;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.Logging;
 using WpfSamples.Services;
+using Microsoft.Extensions.Logging;
 namespace WpfSamples.ViewModels
 {
     [DependencyObject]

@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using NLog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,14 +11,17 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
 {
     public class TransactionInterceptorAsync : IAsyncInterceptor
     {
+        ILoggerFactory loggerFactory;
 
-        public TransactionInterceptorAsync()
+        public TransactionInterceptorAsync(ILoggerFactory loggerFactory)
         {
+            this.loggerFactory = loggerFactory;
         }
         public void InterceptAsynchronous(IInvocation invocation)
         {
@@ -33,7 +35,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
 
         public void InterceptSynchronous(IInvocation invocation)
         {
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var logger = loggerFactory.CreateLogger(invocation.TargetType.FullName);
             try
             {
                 if (!InterceptEnabled(invocation))
@@ -61,7 +63,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
         }
         private async Task InternalInterceptAsynchronous(IInvocation invocation)
         {
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var logger = loggerFactory.CreateLogger(invocation.TargetType.FullName);
             try
             {
                 if (!InterceptEnabled(invocation))
@@ -93,7 +95,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
         private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation)
         {
 
-            var logger = LogManager.GetLogger(invocation.TargetType.FullName);
+            var logger = loggerFactory.CreateLogger(invocation.TargetType.FullName);
             try
             {
 

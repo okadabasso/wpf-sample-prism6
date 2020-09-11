@@ -5,7 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using NLog;
+
+using Microsoft.Extensions.Logging;
+
 namespace WpfSamples.Infrastructure.Logging
 {
     public static class LoggingExtension
@@ -17,15 +19,12 @@ namespace WpfSamples.Infrastructure.Logging
             [CallerLineNumber] int callerLineNumber = 0)
         {
             if (string.IsNullOrEmpty(callerClassName)) { callerClassName = GetCallerClassName(2); }
-            NLog.LogEventInfo start = new NLog.LogEventInfo(NLog.LogLevel.Info, logger.Name, "block start");
-            start.SetCallerInfo(callerClassName, callerMemberName, callerFilePath, callerLineNumber);
-            logger.Log(typeof(LoggingExtension), start);
+
+            logger.LogTrace($"{callerClassName}#{callerMemberName} block start");
 
             action();
 
-            NLog.LogEventInfo end = new NLog.LogEventInfo(NLog.LogLevel.Info, logger.Name, "block end");
-            end.SetCallerInfo(callerClassName, callerMemberName, callerFilePath, callerLineNumber);
-            logger.Log(typeof(LoggingExtension), end);
+            logger.LogTrace($"{callerClassName}#{callerMemberName} block end");
         }
         private static string GetCallerClassName(int skipFlames)
         {
@@ -37,7 +36,7 @@ namespace WpfSamples.Infrastructure.Logging
             var e = exception;
             while(e != null)
             {
-                logger.Error(e);
+                logger.LogError(e,"");
                 e = e.InnerException;
             }
         }

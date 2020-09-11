@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using NLog;
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
@@ -15,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
 using WpfSamples.Infrastructure.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace WpfSamples.ViewModels
 {
@@ -31,7 +31,6 @@ namespace WpfSamples.ViewModels
         {
         }
     }
-    [DependencyObject]
     public class SampleWindowViewModel : BaseViewModel, IInteractionRequestAware
     {
         private bool _closeWindow = false;
@@ -67,12 +66,10 @@ namespace WpfSamples.ViewModels
         public ReactiveProperty<int> x { get; set; } = new ReactiveProperty<int>();
         public ReactiveProperty<int> y { get; set; } = new ReactiveProperty<int>();
         public ReactiveProperty<int> result { get; set; } = new ReactiveProperty<int>();
-        public SampleWindowViewModel (IContainer container, ILogger logger) : base()
+        public SampleWindowViewModel (IContainer container, ILogger<SampleWindowViewModel> logger) : base()
         {
             _container = container;
             _logger = logger;
-            _logger.BlockTrace(() => {
-            });
             SubmitCommand = new DelegateCommand(Close);
             LoadedAction = new DelegateCommand(OnLoaded);
             ChangeCommand = new DelegateCommand(Change);

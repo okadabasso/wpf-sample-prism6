@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using NLog;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -18,10 +17,10 @@ using Prism.Interactivity.InteractionRequest;
 using WpfSamples.Notifications;
 using WpfSamples.Views;
 using System.Reactive.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace WpfSamples.ViewModels
 {
-    [DependencyObject]
     public class ProductListWindowViewModel : BindableBase
     {
         private readonly IContainer _container;
@@ -40,7 +39,7 @@ namespace WpfSamples.ViewModels
         public ReactiveProperty<int?> IsEditable { get; set; } = new ReactiveProperty<int?>();
 
         private ObservableCollection<Product> products { get; set; } = new ObservableCollection<Product>();
-        public ProductListWindowViewModel(IContainer container, ILogger logger)
+        public ProductListWindowViewModel(IContainer container, ILogger<ProductListWindowViewModel> logger)
         {
             _container = container;
             _logger = logger;
@@ -116,7 +115,7 @@ namespace WpfSamples.ViewModels
             notification => {
                 UpdateProductList();
                 SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
-                _logger.Trace($" complete");
+                _logger.LogTrace($" complete");
             });
 
         }
@@ -129,7 +128,7 @@ namespace WpfSamples.ViewModels
             notification => {
                 UpdateProductList();
                 SelectedProductId.Value = (notification as SubWindowOpenNotification).Id;
-                _logger.Trace($" complete");
+                _logger.LogTrace($" complete");
             });
 
         }
