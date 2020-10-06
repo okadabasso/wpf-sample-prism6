@@ -21,18 +21,8 @@
         <Setter Property="Padding" Value="12 8 12 8"></Setter>
         <Setter Property="Padding" Value="12 8 12 8"></Setter>
         <Setter Property="Background" Value="#f9f9fa"></Setter>
-        <Setter Property="Foreground" Value="#374047"></Setter>
+        <Setter Property="Foreground" Value="#adb4b9"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="Effect">
-            <Setter.Value>
-                <DropShadowEffect BlurRadius="10"
-                              Direction="315"
-                              Color="#000000"
-                              RenderingBias="Quality"
-                                  Opacity="0.15"
-                                  ShadowDepth="2"/>
-            </Setter.Value>
-        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button" >
@@ -48,12 +38,29 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="true">
+                <Setter Property="Background" Value="#f9f9fa"></Setter>
+                <Setter Property="Foreground" Value="#374047"></Setter>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="10"
+                        Direction="315"
+                        Color="#000000"
+                        RenderingBias="Quality"
+                            Opacity="0.15"
+                            ShadowDepth="2"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#606e79" />
                 <Setter Property="Foreground" Value="#eceeef" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Foreground" Value="#FFFFFF"/>
+            </Trigger>
+            <Trigger Property="IsDefaulted" Value="true">
+                <Setter Property="Background"  Value="#F00"/>
             </Trigger>
 
         </Style.Triggers>
@@ -109,6 +116,12 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="3"/>
+        
     </Style>
 
 </ResourceDictionary>

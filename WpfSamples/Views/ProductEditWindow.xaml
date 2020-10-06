@@ -4,14 +4,21 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
-             Style="{DynamicResource WindowStyle}">
+             Style="{DynamicResource WindowStyle}"
+             Width="800" Height="600">
     <Window.Resources>
         <Style x:Key="FieldLabel" TargetType="TextBlock">
             <Setter Property="Width"  Value="100"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Key="StackLayout" TargetType="StackPanel">
             <Setter Property="Margin"  Value="0 0 0 8"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="VerticalAlignment"  Value="Center" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="NumberInput" TargetType="TextBox">
             <Setter Property="TextAlignment"  Value="Right"></Setter>
@@ -39,7 +46,7 @@
                 <TextBlock Style="{StaticResource FieldLabel}" Text="商品名"></TextBlock>
                 <TextBox Text="{Binding ProductName.Value}" Width="320"></TextBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+            <StackPanel  Style="{StaticResource StackLayout}">
                 <TextBlock Style="{StaticResource FieldLabel}" Text="供給元"></TextBlock>
                 <ComboBox  ItemsSource="{Binding Suppliers}" SelectedValue="{Binding SupplierId.Value}"
                            SelectedValuePath="SupplierId"
@@ -75,7 +82,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
                 <TextBlock Style="{StaticResource FieldLabel}" Text="受注レベル"></TextBlock>
-                <TextBox Text="{Binding ReorderLevel.Value}" Style="{StaticResource NumberInput}" Width="100"></TextBox>
+                <TextBox Text="{Binding ReorderLevel.Value}" Style="{StaticResource NumberInput}" Width="100"
+                         ></TextBox>
             </StackPanel>
 
 
