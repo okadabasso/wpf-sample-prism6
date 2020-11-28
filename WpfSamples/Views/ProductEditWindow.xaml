@@ -4,6 +4,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              Style="{DynamicResource WindowStyle}"
              Width="800" Height="600">
     <Window.Resources>
@@ -84,6 +85,19 @@
                 <TextBlock Style="{StaticResource FieldLabel}" Text="受注レベル"></TextBlock>
                 <TextBox Text="{Binding ReorderLevel.Value}" Style="{StaticResource NumberInput}" Width="100"
                          ></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <fa:ImageAwesome Icon="Search" Width="16" Height="16" Margin="0 0 8 0" />
+                <TextBlock Text="サンプルテキスト"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Style="{StaticResource StackLayout}">
+                <Button>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Search" Width="16" Height="16" Margin="0 0 8 0" />
+                        <TextBlock Text="検索"></TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
 
