@@ -29,7 +29,7 @@
                 </Style>
             </StackPanel.Resources>
             <Button Command="{Binding ShowSampleWindowCommand}" CommandParameter="WpfSamples.Views.SampleWindow">
-                <TextBlock Text="ReactiveProperty サンプル"></TextBlock>
+                <TextBlock Text="Binding サンプル"></TextBlock>
             </Button>
             <Button 
                 Command="{Binding ShowSampleWindowCommand}" 

@@ -174,7 +174,6 @@
       <DependentUpon>ProductEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ProductListWindowViewModel.cs" />
-    <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\SampleWindowViewModel.cs" />
     <Compile Include="Views\CustomerList.xaml.cs">
       <DependentUpon>CustomerList.xaml</DependentUpon>
@@ -187,9 +186,6 @@
     </Compile>
     <Compile Include="Views\ProductListWindow.xaml.cs">
       <DependentUpon>ProductListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SampleView.xaml.cs">
-      <DependentUpon>SampleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SampleWindow.xaml.cs">
       <DependentUpon>SampleWindow.xaml</DependentUpon>
@@ -229,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductListWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SampleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
