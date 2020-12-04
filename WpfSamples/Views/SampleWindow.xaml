@@ -45,7 +45,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="x + y = " Width="64"></TextBlock>
-                    <TextBlock Text="{Binding Result}"></TextBlock>
+                    <TextBlock Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>

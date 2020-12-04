@@ -37,7 +37,15 @@ namespace WpfSamples.ViewModels
     [DependencyObject]
     public class SampleWindowViewModel : BindableBase, IInteractionRequestAware
     {
+        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            return base.SetProperty(ref storage, value, propertyName);
+        }
+        protected override bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null)
+        {
+            return base.SetProperty(ref storage, value, onChanged, propertyName);
 
+        }
         private readonly Autofac.IContainer _container;
         private readonly ILogger _logger;
 
@@ -53,7 +61,7 @@ namespace WpfSamples.ViewModels
         }
         public Action FinishInteraction { get; set; }
 
-        protected int _x;
+        private int _x;
         public int X
         {
             get => _x;
@@ -61,7 +69,6 @@ namespace WpfSamples.ViewModels
             {
                 SetProperty(ref _x, value);
                 UpdateResult();
-                RaisePropertyChanged(nameof(X));
             }
         }
         protected int _y;
@@ -72,13 +79,19 @@ namespace WpfSamples.ViewModels
             {
                 SetProperty(ref _y, value);
                 UpdateResult();
-                RaisePropertyChanged(nameof(Y));
             }
         }
         protected int _result;
 
 
-        public int Result { get => _result; set => SetProperty(ref _result, value); }
+        public int Result
+        {
+            get => _result;
+            set
+            {
+                SetProperty(ref _result, value);
+            }
+        }
         private void UpdateResult()
         {
             Result = X + Y;
@@ -91,7 +104,6 @@ namespace WpfSamples.ViewModels
             SubmitCommand = new DelegateCommand(Close);
             ChangeCommand = new DelegateCommand(Change);
             CloseCommand = new DelegateCommand(Close);
-            RaisePropertyChanged(null);
         }
         [Trace]
         protected virtual void Change()

@@ -13,6 +13,9 @@ using WpfSamples.Services;
 using Autofac.Core;
 using Castle.Components.DictionaryAdapter.Xml;
 using Autofac.Core.Resolving;
+using WpfSamples.ViewModels;
+using Prism.Mvvm;
+using System.ComponentModel;
 
 namespace WpfSamples
 {
@@ -31,12 +34,12 @@ namespace WpfSamples
                  .InstancePerLifetimeScope()
                  ;
             // trace
+
             builder.RegisterAssemblyTypes(this.GetType().Assembly)
                 .Where(t => (!t.GetCustomAttribute<DependencyObjectAttribute>()?.Transactional) ?? false)
-                 .AsSelf()
-                 .AsImplementedInterfaces()
                  .EnableClassInterceptors()
                  .InterceptedBy(typeof(TraceInterceptor))
+                 .AsSelf()
                  ;
         }
     }

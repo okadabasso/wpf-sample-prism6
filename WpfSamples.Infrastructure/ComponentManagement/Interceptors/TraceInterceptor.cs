@@ -31,7 +31,7 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
             {
                 return false;
             }
-            if (invocation.MethodInvocationTarget.GetCustomAttribute<TraceAttribute>() == null)
+            if (invocation.Method.GetCustomAttribute<TraceAttribute>() == null)
             {
                 return false;
             }
