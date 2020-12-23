@@ -27,6 +27,10 @@ namespace WpfSamples
             builder.RegisterModule<Infrastructure.ComponentManagement.InfrastructureDependencyModule>();
             builder.RegisterModule<Models.ComponentManagement.ModelsDependencyModule>();
             builder.RegisterModule<SampleDependencyModule>();
+
+            builder.RegisterTypeForNavigation<PopupView>();
+
+            builder.RegisterModule<Module1.Module1DependencyModule>();
         }
 
         protected override void InitializeShell()
@@ -40,10 +44,5 @@ namespace WpfSamples
             return Container.Resolve<MainWindow>();
         }
 
-        protected override void ConfigureModuleCatalog()
-        {
-            //var moduleCatalog = (ModuleCatalog)ModuleCatalog;
-            //moduleCatalog.AddModule(typeof(Module));
-        }
     }
 }

@@ -163,6 +163,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\ShowSubWindowAction.cs" />
+    <Compile Include="Notifications\PopupNotification.cs" />
     <Compile Include="Notifications\SubWindowOpenNotification.cs" />
     <Compile Include="SampleDependencyModule.cs" />
     <Compile Include="Services\FooService.cs" />
@@ -170,6 +171,8 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ProductEditWindowViewModel.cs" />
     <Compile Include="ViewModels\ProductListEditWindowViewModel.cs" />
+    <Compile Include="ViewModels\PopupViewModel.cs" />
+    <Compile Include="ViewModels\WindowEventViewModel.cs" />
     <Compile Include="Views\ProductEditWindow.xaml.cs">
       <DependentUpon>ProductEditWindow.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,12 @@
     </Compile>
     <Compile Include="Views\SampleWindow.xaml.cs">
       <DependentUpon>SampleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopupView.xaml.cs">
+      <DependentUpon>PopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEventView.xaml.cs">
+      <DependentUpon>WindowEventView.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\WindowStyleDictionary.xaml">
       <SubType>Designer</SubType>
@@ -232,6 +241,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PopupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowEventView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -261,6 +278,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module1\Module1.csproj">
+      <Project>{81fd5623-76e3-4cca-9590-d2cfce226126}</Project>
+      <Name>Module1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfSamples.Infrastructure\WpfSamples.Infrastructure.csproj">
       <Project>{fa11b1ee-fcad-4f3a-8a00-8cf8be28886a}</Project>
       <Name>WpfSamples.Infrastructure</Name>
