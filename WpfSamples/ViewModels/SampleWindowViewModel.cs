@@ -19,22 +19,6 @@ using System.ComponentModel;
 
 namespace WpfSamples.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public BaseViewModel()
-        {
-        }
-        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] String propertyName = "")
-        {
-            field = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    [DependencyObject]
     public class SampleWindowViewModel : BindableBase, IInteractionRequestAware
     {
         protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
@@ -105,16 +89,13 @@ namespace WpfSamples.ViewModels
             ChangeCommand = new DelegateCommand(Change);
             CloseCommand = new DelegateCommand(Close);
         }
-        [Trace]
         protected virtual void Change()
         {
             X++;
         }
-        [Trace]
         protected virtual void Close()
         {
             FinishInteraction();
-
         }
 
     }

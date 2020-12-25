@@ -11,11 +11,14 @@
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#66ffffff"/>
 
     <Style x:Key="WindowStyle" TargetType="Window">
-        <Setter Property="Width" Value="1280"></Setter>
-         <Setter Property="Height" Value="800"></Setter>
+        <Setter Property="Width" Value="1178"></Setter>
+         <Setter Property="Height" Value="720"></Setter>
         <Setter Property="Background" Value="#f9f9fa" />
         <Setter Property="Foreground" Value="#374047" />
         <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style TargetType="CheckBox">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
     <Style TargetType="Button">
         <Setter Property="Padding" Value="4 2 4 2"></Setter>

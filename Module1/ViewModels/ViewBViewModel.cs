@@ -1,45 +1,30 @@
-﻿using Module1.Views;
-using NLog;
-using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NLog;
+using Reactive.Bindings;
+using Module1.Views;
+using System.ComponentModel;
 
 namespace Module1.ViewModels
 {
-    public class ViewAViewModel : BindableBase, INavigationAware
+    public class ViewBViewModel : BindableBase, INavigationAware
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
-        public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
-
+        public ReactiveCommand NavigateToViewACommand { get; set; } = new ReactiveCommand();
+        IRegionNavigationService _navigationService;
         public ReactiveProperty<bool> CancelClosing { get; set; } = new ReactiveProperty<bool>();
 
         public ReactiveCommand ShowMessageCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand<CancelEventArgs> ClosingCommand { get; set; } = new ReactiveCommand<CancelEventArgs>();
-        public ReactiveCommand NavigateToViewBCommand { get; set; } = new ReactiveCommand();
-
-        IRegionNavigationService _navigationService;
-
-
-        public ViewAViewModel()
+        public ViewBViewModel()
         {
-            ShowMessageCommand.Subscribe(() => {
-                NotificationRequest.Raise(new Notification
-                {
-                    Title = "sample",
-                    Content = "new message"
-                });
 
-            });
+            NavigateToViewACommand.Subscribe(NavigateToViewA);
             ClosingCommand.Subscribe(OnClosing);
-            NavigateToViewBCommand.Subscribe(NavigateToViewB);
         }
         public void OnClosing(CancelEventArgs args)
         {
@@ -48,10 +33,11 @@ namespace Module1.ViewModels
                 args.Cancel = true;
             }
         }
-        private void NavigateToViewB()
+        private void NavigateToViewA()
         {
-            _navigationService.RequestNavigate(typeof(ViewB).FullName);
+            _navigationService.Journal.GoBack();
         }
+
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -62,6 +48,7 @@ namespace Module1.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
             logger.Trace("OnNavigatedFrom");
+            CancelClosing.Value = false;
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

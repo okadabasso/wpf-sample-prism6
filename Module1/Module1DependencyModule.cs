@@ -14,7 +14,8 @@ namespace Module1
         {
             base.Load(builder);
 
-            builder.RegisterTypeForNavigation<Views.ViewA>();
+            builder.RegisterTypeForNavigation<Views.ViewA>(typeof(Views.ViewA).FullName);
+            builder.RegisterTypeForNavigation<Views.ViewB>(typeof(Views.ViewB).FullName);
         }
     }
 }

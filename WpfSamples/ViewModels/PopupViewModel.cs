@@ -1,36 +1,34 @@
-﻿using Module1.Views;
-using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
+﻿using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
-using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using WpfSamples.Notifications;
-using WpfSamples.Views;
-
+using System.ComponentModel;
+using Reactive.Bindings;
 namespace WpfSamples.ViewModels
 {
-	public class PopupViewModel : BindableBase, IInteractionRequestAware
+    public class PopupViewModel : BindableBase, IInteractionRequestAware
     {
-        public Reactive.Bindings.ReactiveCommand LoadedCommand { get; set; } = new Reactive.Bindings.ReactiveCommand();
-        public Reactive.Bindings.ReactiveProperty<IRegionManager> PopupRegionManager { get; set; } = new Reactive.Bindings.ReactiveProperty<IRegionManager>();
+        public ReactiveCommand LoadedCommand { get; set; } = new ReactiveCommand();
+        public ReactiveCommand<CancelEventArgs> ClosingCommand { get; set; } = new ReactiveCommand<CancelEventArgs> ();
+        public ReactiveProperty<bool> CancelClose { get; set; } = new ReactiveProperty<bool>();
         public INotification Notification { get; set; }
+
         public Action FinishInteraction { get; set; }
 
-        public PopupViewModel(IRegionManager _regionManager)
+        public PopupViewModel()
         {
-            PopupRegionManager.Value = _regionManager.CreateRegionManager();
-
-            LoadedCommand.Subscribe(Loaded);
+            LoadedCommand.Subscribe(OnLoaded);
+            ClosingCommand.Subscribe(OnClosing);
         }
 
-        public void Loaded()
+        public void OnLoaded()
         {
-            if (Notification is PopupNotification n)
-                n.PopupRegionManager = PopupRegionManager.Value;
-
-            PopupRegionManager.Value.RequestNavigate("PopupRegion", nameof(ViewA));
         }
-	}
+        public void OnClosing(CancelEventArgs args)
+        {
+            if (CancelClose.Value)
+            {
+                args.Cancel = true;
+            }
+        }
+    }
 }

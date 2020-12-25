@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:prism="http://prismlibrary.com/"               
+             xmlns:prism="http://prismlibrary.com/"       
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:actions="clr-namespace:WpfSamples.Actions"
              prism:ViewModelLocator.AutoWireViewModel="True"
              MinHeight="600" MinWidth="800">
@@ -12,11 +13,14 @@
             <i:EventTrigger EventName="Loaded">
                 <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
             </i:EventTrigger>
-            <prism:InteractionRequestTrigger SourceObject="{Binding ShowSubWindowCommand, Mode=OneWay}">
+            <prism:InteractionRequestTrigger SourceObject="{Binding ShowSubWindowRequest, Mode=OneWay}">
                 <actions:ShowSubWindowAction></actions:ShowSubWindowAction>
             </prism:InteractionRequestTrigger>
-            <prism:InteractionRequestTrigger SourceObject="{Binding ShowPopupCommand, Mode=OneWay}">
-                <prism:PopupWindowAction>
+            <prism:InteractionRequestTrigger SourceObject="{Binding ShowCustomPopupWindowRequest, Mode=OneWay}">
+                <actions:ShowPopupWindowAction></actions:ShowPopupWindowAction>
+            </prism:InteractionRequestTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding ShowPopupRequest, Mode=OneWay}">
+                <prism:PopupWindowAction WindowStartupLocation="CenterScreen">
                     <prism:PopupWindowAction.WindowStyle>
                         <Style TargetType="Window">
                             <Setter Property="ShowInTaskbar" Value="False" />
@@ -56,9 +60,12 @@
                 <TextBlock Text="Window Event Sample"></TextBlock>
             </Button>
             <Button 
-                Command="{Binding ShowAnotherWindowCommand}" 
+                Command="{Binding ShowPopupWindowCommand}" 
                 >
-                <TextBlock Text="subwindow region sample"></TextBlock>
+                <TextBlock Text="default popup sample"></TextBlock>
+            </Button>
+            <Button  Command="{Binding ShowCustomPopupWindowCommand}"  CommandParameter="Module1.Views.ViewA" >
+                <TextBlock Text="custom popup sample"></TextBlock>
             </Button>
         </StackPanel>
     </Grid>

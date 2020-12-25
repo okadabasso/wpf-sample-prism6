@@ -162,6 +162,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\ShowPopupWindowAction.cs" />
     <Compile Include="Actions\ShowSubWindowAction.cs" />
     <Compile Include="Notifications\PopupNotification.cs" />
     <Compile Include="Notifications\SubWindowOpenNotification.cs" />
@@ -169,10 +170,13 @@
     <Compile Include="Services\FooService.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\PopupWindowViewModel.cs" />
     <Compile Include="ViewModels\ProductEditWindowViewModel.cs" />
-    <Compile Include="ViewModels\ProductListEditWindowViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModel.cs" />
     <Compile Include="ViewModels\WindowEventViewModel.cs" />
+    <Compile Include="Views\PopupWindow.xaml.cs">
+      <DependentUpon>PopupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductEditWindow.xaml.cs">
       <DependentUpon>ProductEditWindow.xaml</DependentUpon>
     </Compile>
@@ -183,9 +187,6 @@
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProductListEditWindow.xaml.cs">
-      <DependentUpon>ProductListEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductListWindow.xaml.cs">
       <DependentUpon>ProductListWindow.xaml</DependentUpon>
@@ -200,6 +201,10 @@
       <DependentUpon>WindowEventView.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\WindowStyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,10 +231,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ProductListEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

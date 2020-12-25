@@ -9,20 +9,26 @@ using WpfSamples.Notifications;
 using WpfSamples.Views;
 using Prism.Interactivity.InteractionRequest;
 using Microsoft.Extensions.Logging;
+using Module1.Views;
+
 namespace WpfSamples.ViewModels
 {
     public class MenuViewModel : BindableBase
     {
         private readonly ILogger _logger;
-        public InteractionRequest<Notification> ShowSubWindowCommand { get; set; } = new InteractionRequest<Notification>();
-        public DelegateCommand ShowAnotherWindowCommand { get; set; }
+        public DelegateCommand ShowPopupWindowCommand { get; set; }
         public DelegateCommand<string> ShowSampleWindowCommand { get; set; }
-        public InteractionRequest<Notification> ShowPopupCommand { get; set; } = new InteractionRequest<Notification>();
+        public DelegateCommand<string> ShowCustomPopupWindowCommand { get; set; }
+        public InteractionRequest<Notification> ShowPopupRequest { get; set; } = new InteractionRequest<Notification>();
+        public InteractionRequest<Notification> ShowSubWindowRequest { get; set; } = new InteractionRequest<Notification>();
+        public InteractionRequest<Notification> ShowCustomPopupWindowRequest { get; set; } = new InteractionRequest<Notification>();
+
+
         public MenuViewModel(ILogger<MenuViewModel> logger)
         {
             _logger = logger;
             ShowSampleWindowCommand = new DelegateCommand<string>(name => {
-                this.ShowSubWindowCommand.Raise(new SubWindowOpenNotification
+                this.ShowSubWindowRequest.Raise(new SubWindowOpenNotification
                 {
                     ContentType =  Type.GetType(name)
                 },
@@ -30,11 +36,21 @@ namespace WpfSamples.ViewModels
                     _logger.LogTrace($"{name} complete");
                 });
             });
-            ShowAnotherWindowCommand = new DelegateCommand(() => {
-                this.ShowPopupCommand.Raise(new PopupNotification
+            ShowPopupWindowCommand = new DelegateCommand(() => {
+                this.ShowPopupRequest.Raise(new PopupNotification
                 {
                    Title = "test",
                     Content = new PopupView()  
+                },
+                notification => {
+                    _logger.LogTrace($"subwindow complete");
+                });
+            });
+            ShowCustomPopupWindowCommand = new DelegateCommand<string>(name => {
+                this.ShowCustomPopupWindowRequest.Raise(new PopupNotification
+                {
+                    Title = "test",
+                    Content = name
                 },
                 notification => {
                     _logger.LogTrace($"subwindow complete");

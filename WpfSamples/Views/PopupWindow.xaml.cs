@@ -3,11 +3,11 @@
 namespace WpfSamples.Views
 {
     /// <summary>
-    /// Interaction logic for ProductListEditWindow.xaml
+    /// Interaction logic for PopupWindow.xaml
     /// </summary>
-    public partial class ProductListEditWindow : Window
+    public partial class PopupWindow : Window
     {
-        public ProductListEditWindow()
+        public PopupWindow()
         {
             InitializeComponent();
         }
