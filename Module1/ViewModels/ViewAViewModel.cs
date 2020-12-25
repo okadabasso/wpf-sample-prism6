@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Module1.ViewModels
 {
@@ -45,7 +46,10 @@ namespace Module1.ViewModels
         {
             if (CancelClosing.Value)
             {
-                args.Cancel = true;
+                if (MessageBox.Show("Do you want to close?", "Navigate", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.No)
+                {
+                    args.Cancel = true;
+                }
             }
         }
         private void NavigateToViewB()
