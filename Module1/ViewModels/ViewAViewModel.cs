@@ -1,6 +1,7 @@
 ﻿using Module1.Views;
 using NLog;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -26,11 +28,13 @@ namespace Module1.ViewModels
         public ReactiveCommand<CancelEventArgs> ClosingCommand { get; set; } = new ReactiveCommand<CancelEventArgs>();
         public ReactiveCommand NavigateToViewBCommand { get; set; } = new ReactiveCommand();
 
+        private IEventAggregator _eventAggregator;
         IRegionNavigationService _navigationService;
 
 
-        public ViewAViewModel()
+        public ViewAViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             ShowMessageCommand.Subscribe(() => {
                 NotificationRequest.Raise(new Notification
                 {
@@ -41,6 +45,7 @@ namespace Module1.ViewModels
             });
             ClosingCommand.Subscribe(OnClosing);
             NavigateToViewBCommand.Subscribe(NavigateToViewB);
+            Thread.Sleep(500);
         }
         public void OnClosing(CancelEventArgs args)
         {
@@ -49,8 +54,10 @@ namespace Module1.ViewModels
                 if (MessageBox.Show("Do you want to close?", "Navigate", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.No)
                 {
                     args.Cancel = true;
+                    return;
                 }
             }
+
         }
         private void NavigateToViewB()
         {
@@ -72,6 +79,7 @@ namespace Module1.ViewModels
         {
             _navigationService = navigationContext.NavigationService;
             logger.Trace("OnNavigatedTo");
+            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish(nameof(ViewA));
         }
     }
 }

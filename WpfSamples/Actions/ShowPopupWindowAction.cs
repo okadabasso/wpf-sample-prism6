@@ -30,6 +30,7 @@ namespace WpfSamples.Actions
                 {
                     args.Callback();
                     window.Close();
+                    window = null;
                 };
 
             };

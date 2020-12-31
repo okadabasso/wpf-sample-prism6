@@ -9,7 +9,10 @@
         mc:Ignorable="d"
         Title="{Binding Title}"
         Style="{DynamicResource WindowStyle}"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Width="1152"
+        Height="720"
+        >
     <Grid Margin="8">
         <DockPanel>
             <TextBlock Text="Main Window" DockPanel.Dock="Top"></TextBlock>

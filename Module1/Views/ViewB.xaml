@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-         prism:ViewModelLocator.AutoWireViewModel="True">
+         prism:ViewModelLocator.AutoWireViewModel="True"
+             Width="480"
+             Height="360">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing"   SourceObject="{Binding  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
             <prism:InvokeCommandAction Command="{Binding ClosingCommand}" />

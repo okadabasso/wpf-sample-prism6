@@ -35,6 +35,14 @@ namespace WpfSamples
 
         protected override void InitializeShell()
         {
+            var login = new LoginWindow();
+            var result = login.ShowDialog();
+            if (result.HasValue && !result.Value)
+            {
+                Application.Current.Shutdown();
+                return;
+            }
+            
             var window = (Window)Shell;
             window.Show();
         }

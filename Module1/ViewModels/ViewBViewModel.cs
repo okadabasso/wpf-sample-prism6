@@ -8,6 +8,7 @@ using NLog;
 using Reactive.Bindings;
 using Module1.Views;
 using System.ComponentModel;
+using Prism.Events;
 
 namespace Module1.ViewModels
 {
@@ -20,11 +21,16 @@ namespace Module1.ViewModels
 
         public ReactiveCommand ShowMessageCommand { get; set; } = new ReactiveCommand();
         public ReactiveCommand<CancelEventArgs> ClosingCommand { get; set; } = new ReactiveCommand<CancelEventArgs>();
-        public ViewBViewModel()
+
+        private IEventAggregator _eventAggregator;
+
+        public ViewBViewModel(IEventAggregator eventAggregator)
         {
 
             NavigateToViewACommand.Subscribe(NavigateToViewA);
             ClosingCommand.Subscribe(OnClosing);
+
+            _eventAggregator = eventAggregator;
         }
         public void OnClosing(CancelEventArgs args)
         {
@@ -35,7 +41,7 @@ namespace Module1.ViewModels
         }
         private void NavigateToViewA()
         {
-            _navigationService.Journal.GoBack();
+            _navigationService.RequestNavigate(typeof(ViewA).FullName);
         }
 
 
@@ -53,8 +59,10 @@ namespace Module1.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            _navigationService = navigationContext.NavigationService;
             logger.Trace("OnNavigatedTo");
+            _navigationService = navigationContext.NavigationService;
+
+            _eventAggregator.GetEvent<PubSubEvent<string>>().Publish(nameof(ViewB));
         }
     }
 }
