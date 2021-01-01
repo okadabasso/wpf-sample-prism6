@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using WpfSamples.Infrastructure.ComponentManagement.Attributes;
-using WpfSamples.Notifications;
 using WpfSamples.Views;
 using Prism.Interactivity.InteractionRequest;
 using Microsoft.Extensions.Logging;
 using Module1.Views;
+using WpfSamples.Infrastructure.Presentation.Notifications;
 
 namespace WpfSamples.ViewModels
 {
@@ -28,7 +28,7 @@ namespace WpfSamples.ViewModels
         {
             _logger = logger;
             ShowSampleWindowCommand = new DelegateCommand<string>(name => {
-                this.ShowSubWindowRequest.Raise(new SubWindowOpenNotification
+                this.ShowSubWindowRequest.Raise(new Infrastructure.Presentation.Notifications.SubWindowOpenNotification
                 {
                     ContentType =  Type.GetType(name)
                 },

@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace WpfSamples.Behaviors
+namespace WpfSamples.Infrastructure.Presentation.Behaviors
 {
     public class ViewNameChangedAttachedBehavior
     {

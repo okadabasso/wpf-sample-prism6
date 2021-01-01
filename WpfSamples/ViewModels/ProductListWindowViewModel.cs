@@ -14,10 +14,10 @@ using System.Windows;
 using Reactive;
 using Reactive.Bindings;
 using Prism.Interactivity.InteractionRequest;
-using WpfSamples.Notifications;
 using WpfSamples.Views;
 using System.Reactive.Linq;
 using Microsoft.Extensions.Logging;
+using WpfSamples.Infrastructure.Presentation.Notifications;
 
 namespace WpfSamples.ViewModels
 {

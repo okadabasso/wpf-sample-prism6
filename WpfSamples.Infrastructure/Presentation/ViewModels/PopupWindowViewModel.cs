@@ -6,18 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Reactive.Bindings;
 using Prism.Interactivity.InteractionRequest;
-using WpfSamples.Notifications;
 using Prism.Events;
 using System.Windows;
-using Module1.Views;
+using WpfSamples.Infrastructure.Presentation.Notifications;
 
-namespace WpfSamples.ViewModels
+namespace WpfSamples.Infrastructure.Presentation.ViewModels
 {
     public class PopupWindowViewModel : BindableBase, IInteractionRequestAware
     {
         IRegionManager _regionManager;
         private string _title;
-        private string _viewName = nameof(ViewA);
+        private string _viewName;
 
         public ReactiveProperty<IRegionManager> PopupRegionManager { get; set; } = new ReactiveProperty<IRegionManager>();
         public INotification Notification { get; set; }

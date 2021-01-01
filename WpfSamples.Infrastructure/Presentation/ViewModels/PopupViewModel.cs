@@ -3,7 +3,7 @@ using Prism.Mvvm;
 using System;
 using System.ComponentModel;
 using Reactive.Bindings;
-namespace WpfSamples.ViewModels
+namespace WpfSamples.Infrastructure.Presentation.ViewModels
 {
     public class PopupViewModel : BindableBase, IInteractionRequestAware
     {

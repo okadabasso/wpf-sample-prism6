@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:style="clr-namespace:WpfSamples.Styles"
-    xmlns:actions="clr-namespace:WpfSamples.Actions"
+    xmlns:actions="clr-namespace:WpfSamples.Infrastructure.Presentation.Actions;assembly=WpfSamples.Infrastructure"
                  >
     <!-- 通常時のボタンの色 -->
     <SolidColorBrush x:Key="NormalButtonBrush" Color="#F7D10C"/>

@@ -1,15 +1,15 @@
 ﻿using Prism.Common;
 using Prism.Interactivity.InteractionRequest;
-using WpfSamples.Notifications;
+using WpfSamples.Infrastructure.Presentation.Notifications;
 using System;
 using System.Windows;
 using System.Windows.Interactivity;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Windows.Controls;
-using WpfSamples.Views;
+using WpfSamples.Infrastructure.Presentation.Views;
 
-namespace WpfSamples.Actions
+namespace WpfSamples.Infrastructure.Presentation.Actions
 {
     public class ShowPopupWindowAction : TriggerAction<DependencyObject>
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfSamples.Notifications
+namespace WpfSamples.Infrastructure.Presentation.Notifications
 {
     public class SubWindowOpenNotification : Notification
     {

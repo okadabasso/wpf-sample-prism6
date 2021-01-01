@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WpfSamples.Views
+namespace WpfSamples.Infrastructure.Presentation.Views
 {
     /// <summary>
     /// Interaction logic for PopupWindow.xaml

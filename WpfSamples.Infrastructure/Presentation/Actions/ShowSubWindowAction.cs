@@ -1,15 +1,15 @@
 ﻿using Prism.Common;
 using Prism.Interactivity.InteractionRequest;
-using WpfSamples.Notifications;
 using System;
 using System.Windows;
 using System.Windows.Interactivity;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
+using WpfSamples.Infrastructure.Presentation.Notifications;
 
-namespace WpfSamples.Actions
+namespace WpfSamples.Infrastructure.Presentation.Actions
 {
-    class ShowSubWindowAction : TriggerAction<DependencyObject>
+    public class ShowSubWindowAction : TriggerAction<DependencyObject>
     {
         private static readonly ConcurrentDictionary<Type, Func<Window>> activators = new ConcurrentDictionary<Type, Func<Window>>();
         private Func<Window> GetWindowActivator(Type contentType)

@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:prism="http://prismlibrary.com/"       
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:actions="clr-namespace:WpfSamples.Actions"
+             xmlns:actions="clr-namespace:WpfSamples.Infrastructure.Presentation.Actions;assembly=WpfSamples.Infrastructure"
              prism:ViewModelLocator.AutoWireViewModel="True"
              MinHeight="600" MinWidth="800">
     <Grid Margin="-8 0 0 0">

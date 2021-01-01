@@ -4,7 +4,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:actions="clr-namespace:WpfSamples.Actions"
+             xmlns:actions="clr-namespace:WpfSamples.Infrastructure.Presentation.Actions;assembly=WpfSamples.Infrastructure"
              Width="800" Height="600"
              WindowStartupLocation="CenterScreen"
              Style="{DynamicResource WindowStyle}">

@@ -162,12 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Actions\ShowPopupWindowAction.cs" />
-    <Compile Include="Actions\ShowSubWindowAction.cs" />
-    <Compile Include="Actions\TextBoxFocusAction.cs" />
-    <Compile Include="Behaviors\ViewNameChangedAttachedBehavior.cs" />
-    <Compile Include="Notifications\PopupNotification.cs" />
-    <Compile Include="Notifications\SubWindowOpenNotification.cs" />
     <Compile Include="SampleDependencyModule.cs" />
     <Compile Include="Services\FooService.cs" />
     <Compile Include="Styles\StyleBehaviorCollection.cs" />
@@ -176,15 +170,10 @@
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
-    <Compile Include="ViewModels\PopupWindowViewModel.cs" />
     <Compile Include="ViewModels\ProductEditWindowViewModel.cs" />
-    <Compile Include="ViewModels\PopupViewModel.cs" />
     <Compile Include="ViewModels\WindowEventViewModel.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PopupWindow.xaml.cs">
-      <DependentUpon>PopupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductEditWindow.xaml.cs">
       <DependentUpon>ProductEditWindow.xaml</DependentUpon>
@@ -214,10 +203,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PopupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
