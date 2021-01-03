@@ -1,8 +1,11 @@
 ﻿using NLog;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace WpfSamples.Infrastructure.Presentation.Behaviors
 {
@@ -43,7 +46,6 @@ namespace WpfSamples.Infrastructure.Presentation.Behaviors
         {
             logger.Trace("EditGridBehavior.DataGrid_PreviewKeyDown");
             var dataGrid = sender as DataGrid;
-            var currentCell = dataGrid.CurrentCell;
             switch (e.Key)
             {
                 case Key.Up:
@@ -59,6 +61,7 @@ namespace WpfSamples.Infrastructure.Presentation.Behaviors
                     dataGrid.CommitEdit();
                     break;
                 default:
+                    logger.Trace($"{e.Key}");
                     dataGrid.BeginEdit(e);
                     break;
             }

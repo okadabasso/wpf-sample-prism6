@@ -63,6 +63,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\FooItem.cs" />
     <Compile Include="ViewModels\SampleGridWindow1ViewModel.cs" />
     <Compile Include="ViewModels\ViewAViewModel.cs" />
     <Compile Include="ViewModels\ViewBViewModel.cs" />
@@ -85,7 +86,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WpfSamples.Infrastructure\WpfSamples.Infrastructure.csproj">
+      <Project>{fa11b1ee-fcad-4f3a-8a00-8cf8be28886a}</Project>
+      <Name>WpfSamples.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\SampleGridWindow1.xaml">
       <SubType>Designer</SubType>

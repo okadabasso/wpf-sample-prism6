@@ -152,6 +152,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\Actions\GridCellSelectAllAction.cs" />
     <Compile Include="Presentation\Actions\ShowPopupWindowAction.cs" />
     <Compile Include="Presentation\Actions\ShowSubWindowAction.cs" />
     <Compile Include="Presentation\Actions\TextBoxFocusAction.cs" />

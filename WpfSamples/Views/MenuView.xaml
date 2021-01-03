@@ -67,6 +67,9 @@
             <Button  Command="{Binding ShowCustomPopupWindowCommand}"  CommandParameter="Module1.Views.ViewA" >
                 <TextBlock Text="custom popup sample"></TextBlock>
             </Button>
+            <Button  Command="{Binding ShowCustomPopupWindowCommand}"  CommandParameter="Module1.Views.SampleGridWindow1" >
+                <TextBlock Text="grid edit"></TextBlock>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

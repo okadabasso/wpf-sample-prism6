@@ -128,17 +128,17 @@
     </Style>
     <Style TargetType="TextBox">
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="20"/>
         <Setter Property="Padding" Value="4 2"/>
-        <Setter Property="style:StyleInteraction.Triggers">
+        <!--<Setter Property="style:StyleInteraction.Triggers">
             <Setter.Value>
                 <style:StyleTriggerCollection>
-                    <i:EventTrigger EventName="GotFocus">
+                    <i:EventTrigger EventName="Loaded">
                         <actions:TextBoxFocusAction/>
                     </i:EventTrigger>
                 </style:StyleTriggerCollection>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
     <Style TargetType="PasswordBox">
         <Setter Property="HorizontalAlignment" Value="Left" />
