@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfSamples.Styles
+namespace WpfSamples.Infrastructure.Presentation.Styles
 {
     public class StyleTriggerCollection : FreezableCollection<System.Windows.Interactivity.TriggerBase>
     {
