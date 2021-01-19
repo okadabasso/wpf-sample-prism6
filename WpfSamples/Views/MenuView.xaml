@@ -20,7 +20,7 @@
                 <actions:ShowPopupWindowAction></actions:ShowPopupWindowAction>
             </prism:InteractionRequestTrigger>
             <prism:InteractionRequestTrigger SourceObject="{Binding ShowPopupRequest, Mode=OneWay}">
-                <prism:PopupWindowAction WindowStartupLocation="CenterScreen">
+                <prism:PopupWindowAction WindowStartupLocation="CenterScreen" IsModal="True">
                     <prism:PopupWindowAction.WindowStyle>
                         <Style TargetType="Window">
                             <Setter Property="ShowInTaskbar" Value="False" />
