@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Interactivity;
 
-namespace WpfSamples.Styles
+namespace WpfSamples.Infrastructure.Presentation.Styles
 {
     /// <summary>
     /// StyleでBehaviorを設定するために使用するコレクション

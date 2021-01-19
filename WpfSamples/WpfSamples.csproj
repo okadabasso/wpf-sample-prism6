@@ -164,9 +164,6 @@
     </ApplicationDefinition>
     <Compile Include="SampleDependencyModule.cs" />
     <Compile Include="Services\FooService.cs" />
-    <Compile Include="Styles\StyleBehaviorCollection.cs" />
-    <Compile Include="Styles\StyleInteraction.cs" />
-    <Compile Include="Styles\StyleTriggerCollection.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />

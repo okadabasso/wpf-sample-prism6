@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 
-namespace WpfSamples.Styles
+namespace WpfSamples.Infrastructure.Presentation.Styles
 {
     /// <summary>
     /// Style内でBehaviorを設定するのに使用します。

@@ -171,6 +171,9 @@
     <Compile Include="Logging\LoggingExtension.cs" />
     <Compile Include="Presentation\Notifications\PopupNotification.cs" />
     <Compile Include="Presentation\Notifications\SubWindowOpenNotification.cs" />
+    <Compile Include="Presentation\Styles\StyleBehaviorCollection.cs" />
+    <Compile Include="Presentation\Styles\StyleInteraction.cs" />
+    <Compile Include="Presentation\Styles\StyleTriggerCollection.cs" />
     <Compile Include="Presentation\ViewModels\PopupViewModel.cs" />
     <Compile Include="Presentation\ViewModels\PopupWindowViewModel.cs" />
     <Compile Include="Presentation\Views\PopupWindow.xaml.cs">
