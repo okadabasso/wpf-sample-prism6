@@ -157,6 +157,7 @@
     <Compile Include="Presentation\Actions\ShowSubWindowAction.cs" />
     <Compile Include="Presentation\Actions\TextBoxFocusAction.cs" />
     <Compile Include="Presentation\Behaviors\EditGridBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\FollowedMaxSizeBehavior.cs" />
     <Compile Include="Presentation\Behaviors\ViewNameChangedAttachedBehavior.cs" />
     <Compile Include="ComponentManagement\Attributes\DependencyObjectAttribute.cs" />
     <Compile Include="ComponentManagement\Attributes\TraceAttribute.cs" />
