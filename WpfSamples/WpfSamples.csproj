@@ -165,10 +165,14 @@
     <Compile Include="SampleDependencyModule.cs" />
     <Compile Include="Services\FooService.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
+    <Compile Include="ViewModels\LayoutCheckWindowViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ProductEditWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowEventViewModel.cs" />
+    <Compile Include="Views\LayoutCheckWindow.xaml.cs">
+      <DependentUpon>LayoutCheckWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -196,6 +200,10 @@
       <DependentUpon>WindowEventView.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\WindowStyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LayoutCheckWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

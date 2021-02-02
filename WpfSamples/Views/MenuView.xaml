@@ -70,6 +70,12 @@
             <Button  Command="{Binding ShowCustomPopupWindowCommand}"  CommandParameter="Module1.Views.SampleGridWindow1" >
                 <TextBlock Text="grid edit"></TextBlock>
             </Button>
+            <Button                  
+                Command="{Binding ShowSampleWindowCommand}" 
+                CommandParameter="WpfSamples.Views.LayoutCheckWindow"
+>
+                <TextBlock Text="Layout check"></TextBlock>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
