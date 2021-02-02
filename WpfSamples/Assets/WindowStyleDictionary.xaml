@@ -20,6 +20,7 @@
         <Setter Property="Background" Value="#f9f9fa" />
         <Setter Property="Foreground" Value="#374047" />
         <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="Meiryo UI" />
     </Style>
     <Style TargetType="CheckBox">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
@@ -126,24 +127,234 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="TextBox">
+    <!--<Style TargetType="TextBox">
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Padding" Value="4 2"/>
-        <!--<Setter Property="style:StyleInteraction.Triggers">
-            <Setter.Value>
-                <style:StyleTriggerCollection>
-                    <i:EventTrigger EventName="Loaded">
-                        <actions:TextBoxFocusAction/>
-                    </i:EventTrigger>
-                </style:StyleTriggerCollection>
-            </Setter.Value>
-        </Setter>-->
-    </Style>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="2 2"/>
+    </Style>-->
     <Style TargetType="PasswordBox">
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Padding" Value="4 2"/>
+        <Setter Property="Padding" Value="2 2"/>
 
     </Style>
+    <Color x:Key="ColorPrimary0" >#f8fcf7</Color>
+    <Color x:Key="ColorPrimary1" >#deefd5</Color>
+    <Color x:Key="ColorPrimary2" >#c3e2b3</Color>
+    <Color x:Key="ColorPrimary3" >#a9d591</Color>
+    <Color x:Key="ColorPrimary4" >#8ec86f</Color>
+    <Color x:Key="ColorPrimary5" >#74bb4d</Color>
+    <Color x:Key="ColorPrimary6" >#5e9d3c</Color>
+    <Color x:Key="ColorPrimary7" >#4a7b2f</Color>
+    <Color x:Key="ColorPrimary8" >#355922</Color>
+    <Color x:Key="ColorPrimary9" >#213715</Color>
+    <Color x:Key="ColorInfo0" >#f7fbfc</Color>
+    <Color x:Key="ColorInfo1" >#d5ebef</Color>
+    <Color x:Key="ColorInfo2" >#b3dbe2</Color>
+    <Color x:Key="ColorInfo3" >#91cbd5</Color>
+    <Color x:Key="ColorInfo4" >#6fbbc8</Color>
+    <Color x:Key="ColorInfo5" >#4dabbb</Color>
+    <Color x:Key="ColorInfo6" >#3c8f9d</Color>
+    <Color x:Key="ColorInfo7" >#2f707b</Color>
+    <Color x:Key="ColorInfo8" >#225159</Color>
+    <Color x:Key="ColorInfo9" >#153237</Color>
+    <Color x:Key="ColorSuccess0" >#f7fcf9</Color>
+    <Color x:Key="ColorSuccess1" >#d5efdf</Color>
+    <Color x:Key="ColorSuccess2" >#b3e2c5</Color>
+    <Color x:Key="ColorSuccess3" >#91d5ac</Color>
+    <Color x:Key="ColorSuccess4" >#6fc892</Color>
+    <Color x:Key="ColorSuccess5" >#4dbb78</Color>
+    <Color x:Key="ColorSuccess6" >#3c9d62</Color>
+    <Color x:Key="ColorSuccess7" >#2f7b4d</Color>
+    <Color x:Key="ColorSuccess8" >#225938</Color>
+    <Color x:Key="ColorSuccess9" >#153723</Color>
+    <Color x:Key="ColorSecondary0" >#fffef4</Color>
+    <Color x:Key="ColorSecondary1" >#fdf8c6</Color>
+    <Color x:Key="ColorSecondary2" >#fcf298</Color>
+    <Color x:Key="ColorSecondary3" >#fbec6b</Color>
+    <Color x:Key="ColorSecondary4" >#fae63d</Color>
+    <Color x:Key="ColorSecondary5" >#f9e00f</Color>
+    <Color x:Key="ColorSecondary6" >#d3be06</Color>
+    <Color x:Key="ColorSecondary7" >#a59504</Color>
+    <Color x:Key="ColorSecondary8" >#786c03</Color>
+    <Color x:Key="ColorSecondary9" >#4a4302</Color>
+    <Color x:Key="ColorWarning0" >#fff8f4</Color>
+    <Color x:Key="ColorWarning1" >#fddcc6</Color>
+    <Color x:Key="ColorWarning2" >#fcc098</Color>
+    <Color x:Key="ColorWarning3" >#fba46b</Color>
+    <Color x:Key="ColorWarning4" >#fa883d</Color>
+    <Color x:Key="ColorWarning5" >#f96c0f</Color>
+    <Color x:Key="ColorWarning6" >#d35706</Color>
+    <Color x:Key="ColorWarning7" >#a54404</Color>
+    <Color x:Key="ColorWarning8" >#783103</Color>
+    <Color x:Key="ColorWarning9" >#4a1f02</Color>
+    <Color x:Key="ColorError0" >#fff4f3</Color>
+    <Color x:Key="ColorError1" >#ffc8c4</Color>
+    <Color x:Key="ColorError2" >#ff9c95</Color>
+    <Color x:Key="ColorError3" >#ff7067</Color>
+    <Color x:Key="ColorError4" >#ff4438</Color>
+    <Color x:Key="ColorError5" >#ff1809</Color>
+    <Color x:Key="ColorError6" >#d90e00</Color>
+    <Color x:Key="ColorError7" >#aa0b00</Color>
+    <Color x:Key="ColorError8" >#7b0800</Color>
+    <Color x:Key="ColorError9" >#4c0500</Color>
+    <Color x:Key="ColorGray0" >#f9faf9</Color>
+    <Color x:Key="ColorGray1" >#e1e5df</Color>
+    <Color x:Key="ColorGray2" >#c9cfc5</Color>
+    <Color x:Key="ColorGray3" >#b1baab</Color>
+    <Color x:Key="ColorGray4" >#98a592</Color>
+    <Color x:Key="ColorGray5" >#809078</Color>
+    <Color x:Key="ColorGray6" >#697762</Color>
+    <Color x:Key="ColorGray7" >#525d4d</Color>
+    <Color x:Key="ColorGray8" >#3c4337</Color>
+    <Color x:Key="ColorGray9" >#252a22</Color>
+
+    <!-- 背景色 -->
+    <SolidColorBrush x:Key="DataGridBackgroundDefault" Color="White" />
+    <SolidColorBrush x:Key="DataGridBackgroundReadOnly" Color="{DynamicResource ColorPrimary1}"  />
+    <SolidColorBrush x:Key="DataGridBackgroundError" Color="{DynamicResource ColorError1}" />
+    <SolidColorBrush x:Key="DataGridBackgroundAlternateRow" Color="{DynamicResource ColorGray0}" />
+    <SolidColorBrush x:Key="DataGridBackgroundSelected" Color="{DynamicResource ColorInfo1}" />
+    <SolidColorBrush x:Key="DataGridBackgroundFocused" Color="{DynamicResource ColorInfo1 }" />
+
+    <!-- 前景色 -->
+    <SolidColorBrush x:Key="DataGridForegroundDefault" Color="{DynamicResource ColorGray9}" />
+    <SolidColorBrush x:Key="DataGridForegroundReadOnly" Color="{DynamicResource ColorGray9}" />
+    <SolidColorBrush x:Key="DataGridForegroundError"  Color="{DynamicResource ColorGray9}" />
+    <SolidColorBrush x:Key="DataGridForegroundAlternateRow"  Color="{DynamicResource ColorGray9}" />
+    <SolidColorBrush x:Key="DataGridForegroundSelected"  Color="{DynamicResource ColorGray9}" />
+
+    <!-- border -->
+    <SolidColorBrush x:Key="DataGridBorderDefault"  Color="{DynamicResource ColorGray2}" />
+    <SolidColorBrush x:Key="DataGridBorderReadOnly"  Color="{DynamicResource ColorPrimary2}" />
+    <SolidColorBrush x:Key="DataGridBorderError" Color="{DynamicResource ColorError2}" />
+    <SolidColorBrush x:Key="DataGridBorderAlternateRow" Color="{DynamicResource ColorInfo2}" />
+    <SolidColorBrush x:Key="DataGridBorderFocused"  Color="{DynamicResource ColorInfo4}" />
+    
+    <Style TargetType="DataGrid">
+        <Setter Property="Margin" Value="5" />
+        <!-- 追加と削除の禁止 -->
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="CanUserDeleteRows" Value="False" />
+        <!-- 列の自動生成不可 -->
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <!-- ユーザによるリサイズ禁止 -->
+        <Setter Property="CanUserResizeColumns" Value="True" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="CanUserReorderColumns" Value="False" />
+        <Setter Property="CanUserSortColumns" Value="False" />
+        <!-- スクロールバー -->
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <!-- サイズ -->
+        <Setter Property="MinHeight" Value="290" />
+        <Setter Property="MaxHeight" Value="720" />
+        <Setter Property="MinWidth" Value="550" />
+        <Setter Property="RowHeight" Value="NaN"/>
+
+        <!-- Colors -->
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource DataGridBorderDefault}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource DataGridBorderDefault}" />
+        <Setter Property="Background" Value="{StaticResource DataGridBackgroundDefault}" />
+        <Setter Property="RowBackground" Value="{StaticResource DataGridBackgroundDefault}" />
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource DataGridBackgroundAlternateRow}" />
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        <!-- row -->
+        <Setter Property="RowStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <!-- Highlight a grid row as the mouse passes over -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DataGridBackgroundSelected}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DataGridBackgroundSelected}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <!-- Highlight selected rows -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource DataGridForegroundSelected}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="0" 
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            Background="Transparent">
+                                            <ContentPresenter  Margin="0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource DataGridForegroundDefault}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="0" 
+                                            BorderBrush="Blue"
+                                            BorderThickness="1"
+                                            Background="Transparent">
+                                            <ContentPresenter  Margin="0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEditing" Value="True">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="0" 
+                                            BorderBrush="Red"
+                                            BorderThickness="1"
+                                            Background="Green">
+                                            <ContentPresenter Margin="0" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                    <!-- Add some padding around the contents of a cell -->
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Foreground" Value="{StaticResource DataGridForegroundDefault}"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="dataGridTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Padding" Value="0 0"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="BorderBrush" Value="Red"></Setter>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="dataGridTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="2 0"></Setter>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>
