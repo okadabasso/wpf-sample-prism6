@@ -170,6 +170,7 @@
     <Compile Include="ComponentManagement\Interceptors\TransactionInterceptorAsync.cs" />
     <Compile Include="DataTypes\EnumExtension.cs" />
     <Compile Include="Logging\LoggingExtension.cs" />
+    <Compile Include="Presentation\Behaviors\WindowSizeLimitBehavior.cs" />
     <Compile Include="Presentation\Notifications\PopupNotification.cs" />
     <Compile Include="Presentation\Notifications\SubWindowOpenNotification.cs" />
     <Compile Include="Presentation\Styles\StyleBehaviorCollection.cs" />

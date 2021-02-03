@@ -4,11 +4,10 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:actions="clr-namespace:WpfSamples.Infrastructure.Presentation.Actions;assembly=WpfSamples.Infrastructure"
-        xmlns:b="clr-namespace:WpfSamples.Infrastructure.Presentation.Behaviors;assembly=WpfSamples.Infrastructure"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-            SizeToContent="WidthAndHeight"
-            FontSize="16"
-            SizeChanged="Window_SizeChanged"
+             xmlns:b="clr-namespace:WpfSamples.Infrastructure.Presentation.Behaviors;assembly=WpfSamples.Infrastructure"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             SizeToContent="WidthAndHeight"
+             FontSize="16"
         >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
