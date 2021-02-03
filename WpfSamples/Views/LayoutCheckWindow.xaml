@@ -7,7 +7,6 @@
         xmlns:b="clr-namespace:WpfSamples.Infrastructure.Presentation.Behaviors;assembly=WpfSamples.Infrastructure"
         prism:ViewModelLocator.AutoWireViewModel="True"
             SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize"
             FontSize="16"
             SizeChanged="Window_SizeChanged"
         >
@@ -16,13 +15,7 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <i:Interaction.Behaviors>
-        <b:FollowedMaxSizeBehavior
-                    TargetMaxHeight="{Binding ElementName=dataGrid, Path=MaxHeight}"
-                    TargetMinHeight="{Binding ElementName=dataGrid, Path=MinHeight}"
-                    />
-    </i:Interaction.Behaviors>
-    <Grid>
+    <Grid Margin="8">
         <StackPanel Visibility="{Binding CategoryPanelVisibility.Value}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <ComboBox  ItemsSource="{Binding Categories}" SelectedValue="{Binding SelectedCategoryId.Value}"
@@ -46,22 +39,30 @@
 
                 </Border>
             </StackPanel>
-            <DataGrid Name="dataGrid" ItemsSource="{Binding Products}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto"  Margin="0,2,0,8" MinHeight="90" MaxHeight="0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="商品ID" Binding="{Binding ProductId}" >
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="TextAlignment"
+            <Grid>
+                <DataGrid Name="dataGrid" 
+                          ItemsSource="{Binding Products}" 
+                          AutoGenerateColumns="False" 
+                          VerticalScrollBarVisibility="Auto"  
+                          Margin="0,2,0,8" MinHeight="0" 
+                          MaxHeight="Infinity">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="商品ID" Binding="{Binding ProductId}" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment"
                                 Value="Right" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="商品名" Binding="{Binding ProductName}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="供給者" Binding="{Binding Supplier.CompanyName}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="カテゴリー" Binding="{Binding Category.CategoryName}"></DataGridTextColumn>
-                </DataGrid.Columns>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="商品名" Binding="{Binding ProductName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="供給者" Binding="{Binding Supplier.CompanyName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="カテゴリー" Binding="{Binding Category.CategoryName}"></DataGridTextColumn>
+                    </DataGrid.Columns>
 
-            </DataGrid>
+                </DataGrid>
+
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>
