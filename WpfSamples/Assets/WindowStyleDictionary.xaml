@@ -216,6 +216,7 @@
     <SolidColorBrush x:Key="DataGridBackgroundAlternateRow" Color="{DynamicResource ColorGray0}" />
     <SolidColorBrush x:Key="DataGridBackgroundSelected" Color="{DynamicResource ColorInfo1}" />
     <SolidColorBrush x:Key="DataGridBackgroundFocused" Color="{DynamicResource ColorInfo1 }" />
+    <SolidColorBrush x:Key="DataGridBackgroundHover" Color="{DynamicResource ColorGray1}" />
 
     <!-- 前景色 -->
     <SolidColorBrush x:Key="DataGridForegroundDefault" Color="{DynamicResource ColorGray9}" />
@@ -247,7 +248,7 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
         <!-- サイズ -->
-        <Setter Property="MinHeight" Value="290" />
+        <Setter Property="MinHeight" Value="270" />
         <Setter Property="MaxHeight" Value="720" />
         <Setter Property="MinWidth" Value="550" />
         <Setter Property="RowHeight" Value="NaN"/>
@@ -266,7 +267,7 @@
                     <Style.Triggers>
                         <!-- Highlight a grid row as the mouse passes over -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource DataGridBackgroundSelected}" />
+                            <Setter Property="Background" Value="{StaticResource DataGridBackgroundHover}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="{StaticResource DataGridBackgroundSelected}" />
@@ -286,7 +287,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridCell">
                                         <Border Padding="0" 
-                                            BorderBrush="Gray"
+                                            BorderBrush="Transparent"
                                             BorderThickness="1"
                                             Background="Transparent">
                                             <ContentPresenter  Margin="0"/>
@@ -301,7 +302,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridCell">
                                         <Border Padding="0" 
-                                            BorderBrush="Blue"
+                                            BorderBrush="{StaticResource DataGridBorderFocused}"
                                             BorderThickness="1"
                                             Background="Transparent">
                                             <ContentPresenter  Margin="0"/>
@@ -316,9 +317,9 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridCell">
                                         <Border Padding="0" 
-                                            BorderBrush="Red"
+                                            BorderBrush="{StaticResource DataGridBorderFocused}"
                                             BorderThickness="1"
-                                            Background="Green">
+                                            Background="Transparent">
                                             <ContentPresenter Margin="0" />
                                         </Border>
                                     </ControlTemplate>
@@ -328,7 +329,7 @@
                     </Style.Triggers>
                     <!-- Add some padding around the contents of a cell -->
                     <Setter Property="Padding" Value="2" />
-                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="BorderThickness" Value="1"/>
                     <Setter Property="Foreground" Value="{StaticResource DataGridForegroundDefault}"/>
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
