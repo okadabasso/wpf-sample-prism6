@@ -12,11 +12,11 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
 {
     public class TraceInterceptorAsync : IAsyncInterceptor
     {
-        private readonly ILoggerFactory loggerFactory;
+        private readonly ILogger<TraceInterceptorAsync> logger;
 
-        public TraceInterceptorAsync(ILoggerFactory loggerFactory)
+        public TraceInterceptorAsync(ILogger<TraceInterceptorAsync> logger)
         {
-            this.loggerFactory = loggerFactory;
+            this.logger = logger;
         }
         public void InterceptAsynchronous(IInvocation invocation)
         {
@@ -36,7 +36,6 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return;
             }
 
-            var  logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             invocation.Proceed();
             this.Trace($"method end with return value {invocation.ReturnValue}", invocation, logger);
@@ -49,7 +48,6 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return;
             }
 
-            var logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             await Invoke(invocation);
             this.Trace("method end", invocation, logger);
@@ -64,7 +62,6 @@ namespace WpfSamples.Infrastructure.ComponentManagement.Interceptors
                 return await InvokeAsync<TResult>(invocation);
             }
 
-            var logger = loggerFactory.CreateLogger(invocation.TargetType);
             this.Trace("method start", invocation, logger);
             TResult result = await InvokeAsync<TResult>(invocation);
             this.Trace($"method end with return value {result}", invocation, logger);

@@ -19,17 +19,9 @@ using System.ComponentModel;
 
 namespace WpfSamples.ViewModels
 {
+    [DependencyObject]
     public class SampleWindowViewModel : BindableBase, IInteractionRequestAware
     {
-        protected override bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            return base.SetProperty(ref storage, value, propertyName);
-        }
-        protected override bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null)
-        {
-            return base.SetProperty(ref storage, value, onChanged, propertyName);
-
-        }
         private readonly Autofac.IContainer _container;
         private readonly ILogger _logger;
 
@@ -46,37 +38,41 @@ namespace WpfSamples.ViewModels
         public Action FinishInteraction { get; set; }
 
         private int _x;
-        public int X
+        public virtual int X
         {
             get => _x;
             set
             {
                 SetProperty(ref _x, value);
                 UpdateResult();
+                RaisePropertyChanged(nameof(X));
             }
         }
         protected int _y;
-        public int Y
+        public virtual int Y
         {
             get => _y;
             set
             {
                 SetProperty(ref _y, value);
                 UpdateResult();
+                RaisePropertyChanged(nameof(Y));
             }
         }
         protected int _result;
 
-
-        public int Result
+        [Trace]
+        public virtual int Result
         {
             get => _result;
             set
             {
                 SetProperty(ref _result, value);
+                RaisePropertyChanged(nameof(Result));
             }
         }
-        private void UpdateResult()
+        [Trace]
+        protected virtual void UpdateResult()
         {
             Result = X + Y;
         }
@@ -89,12 +85,16 @@ namespace WpfSamples.ViewModels
             ChangeCommand = new DelegateCommand(Change);
             CloseCommand = new DelegateCommand(Close);
         }
+        [Trace]
         protected virtual void Change()
         {
+            _logger.LogDebug("change start");
             X++;
         }
+        [Trace]
         protected virtual void Close()
         {
+            _logger.LogDebug("close");
             FinishInteraction();
         }
 
